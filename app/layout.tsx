@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${spaceMono.variable} bg-background`}>
+    <html lang="en" className={`${playfair.variable} ${spaceMono.variable} bg-background scroll-smooth`}>
       <body className="antialiased">{children}</body>
     </html>
   )
