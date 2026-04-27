@@ -1,9 +1,9 @@
-import type { AgentSkill } from '../../types'
+import type { AgentSkill, SkillExecutionContext } from '../../types'
 import { z } from 'zod'
 import { getBrowserController } from '../../browser/controller'
 
-// Shared browser session for skill execution
-let sharedSessionId: string | undefined
+// Session IDs are scoped per execution context (passed via args.context)
+// This prevents cross-contamination between users/requests
 
 export const browserSkills: AgentSkill[] = [
   {
@@ -14,10 +14,10 @@ export const browserSkills: AgentSkill[] = [
     schema: {
       url: z.string().describe('The URL to navigate to'),
     },
-    execute: async (args) => {
+    execute: async (args, context?: SkillExecutionContext) => {
       const url = args.url as string
-      const controller = await getBrowserController(sharedSessionId)
-      sharedSessionId = controller.getSessionId()
+      const sessionId = context?.sessionId
+      const controller = await getBrowserController(sessionId)
       
       const result = await controller.navigate(url)
       return result
@@ -32,9 +32,10 @@ export const browserSkills: AgentSkill[] = [
     schema: {
       selector: z.string().describe('CSS selector for the element to click'),
     },
-    execute: async (args) => {
+    execute: async (args, context?: SkillExecutionContext) => {
       const selector = args.selector as string
-      const controller = await getBrowserController(sharedSessionId)
+      const sessionId = context?.sessionId
+      const controller = await getBrowserController(sessionId)
       
       const result = await controller.click(selector)
       return result
@@ -50,10 +51,11 @@ export const browserSkills: AgentSkill[] = [
       selector: z.string().describe('CSS selector for the input element'),
       text: z.string().describe('Text to type'),
     },
-    execute: async (args) => {
+    execute: async (args, context?: SkillExecutionContext) => {
       const selector = args.selector as string
       const text = args.text as string
-      const controller = await getBrowserController(sharedSessionId)
+      const sessionId = context?.sessionId
+      const controller = await getBrowserController(sessionId)
       
       const result = await controller.type(selector, text)
       return result
@@ -66,8 +68,9 @@ export const browserSkills: AgentSkill[] = [
     description: 'Capture a screenshot of the current page',
     category: 'browser',
     schema: {},
-    execute: async () => {
-      const controller = await getBrowserController(sharedSessionId)
+    execute: async (_args, context?: SkillExecutionContext) => {
+      const sessionId = context?.sessionId
+      const controller = await getBrowserController(sessionId)
       
       const result = await controller.screenshot()
       return result
@@ -80,14 +83,14 @@ export const browserSkills: AgentSkill[] = [
     description: 'Get the text content of the current page',
     category: 'browser',
     schema: {},
-    execute: async () => {
-      const controller = await getBrowserController(sharedSessionId)
+    execute: async (_args, context?: SkillExecutionContext) => {
+      const sessionId = context?.sessionId
+      const controller = await getBrowserController(sessionId)
       
       const result = await controller.getContent()
       return { 
         success: result.success, 
         text: result.text,
-        // Omit HTML to reduce token usage
       }
     },
   },
@@ -100,9 +103,10 @@ export const browserSkills: AgentSkill[] = [
     schema: {
       script: z.string().describe('JavaScript code to execute'),
     },
-    execute: async (args) => {
+    execute: async (args, context?: SkillExecutionContext) => {
       const script = args.script as string
-      const controller = await getBrowserController(sharedSessionId)
+      const sessionId = context?.sessionId
+      const controller = await getBrowserController(sessionId)
       
       const result = await controller.executeScript(script)
       return result

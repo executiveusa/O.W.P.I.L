@@ -74,12 +74,20 @@ export interface AgentCapability {
   permissions: string[]
 }
 
+// Context passed to skill execution for scoping
+export interface SkillExecutionContext {
+  sessionId?: string
+  userId?: string
+  taskId?: string
+  source: 'web' | 'discord' | 'voice' | 'api'
+}
+
 export interface AgentSkill {
   id: string
   name: string
   description: string
   category: 'file' | 'web' | 'browser' | 'discord' | 'owpil' | 'system'
-  execute: (args: Record<string, unknown>) => Promise<unknown>
+  execute: (args: Record<string, unknown>, context?: SkillExecutionContext) => Promise<unknown>
   schema: Record<string, unknown> // JSON Schema for arguments
 }
 

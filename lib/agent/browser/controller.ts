@@ -13,6 +13,53 @@ interface BrowserSession {
 // Session store
 const sessions = new Map<string, BrowserSession>()
 
+// Blocked URL patterns for SSRF protection
+const BLOCKED_HOSTS = [
+  'localhost',
+  '127.0.0.1',
+  '0.0.0.0',
+  '169.254.169.254', // AWS metadata
+  'metadata.google.internal', // GCP metadata
+  '100.100.100.200', // Alibaba metadata
+]
+
+const BLOCKED_IP_RANGES = [
+  /^10\./,        // 10.0.0.0/8
+  /^172\.(1[6-9]|2[0-9]|3[0-1])\./, // 172.16.0.0/12
+  /^192\.168\./, // 192.168.0.0/16
+  /^127\./,      // 127.0.0.0/8
+  /^0\./,        // 0.0.0.0/8
+  /^169\.254\./, // Link-local
+]
+
+function isUrlAllowed(urlString: string): { allowed: boolean; reason?: string } {
+  try {
+    const url = new URL(urlString)
+    
+    // Only allow http and https
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      return { allowed: false, reason: `Protocol ${url.protocol} not allowed` }
+    }
+    
+    // Check blocked hosts
+    const hostname = url.hostname.toLowerCase()
+    if (BLOCKED_HOSTS.includes(hostname)) {
+      return { allowed: false, reason: 'Access to internal hosts blocked' }
+    }
+    
+    // Check blocked IP ranges
+    for (const pattern of BLOCKED_IP_RANGES) {
+      if (pattern.test(hostname)) {
+        return { allowed: false, reason: 'Access to private IP ranges blocked' }
+      }
+    }
+    
+    return { allowed: true }
+  } catch {
+    return { allowed: false, reason: 'Invalid URL' }
+  }
+}
+
 // Session timeout (5 minutes of inactivity)
 const SESSION_TIMEOUT = 5 * 60 * 1000
 
@@ -89,9 +136,20 @@ export class BrowserController {
     }
   }
   
-  async navigate(url: string): Promise<{ success: boolean; title: string; url: string }> {
+  async navigate(url: string): Promise<{ success: boolean; title: string; url: string; error?: string }> {
     if (!this.session) {
       throw new Error('Browser session not initialized')
+    }
+    
+    // SSRF protection: validate URL before navigation
+    const urlCheck = isUrlAllowed(url)
+    if (!urlCheck.allowed) {
+      return { 
+        success: false, 
+        title: '', 
+        url: url,
+        error: urlCheck.reason,
+      }
     }
     
     this.updateActivity()
@@ -111,6 +169,7 @@ export class BrowserController {
         success: false, 
         title: '', 
         url: url,
+        error: error instanceof Error ? error.message : 'Navigation failed',
       }
     }
   }
@@ -272,6 +331,11 @@ export class BrowserController {
   isActive(): boolean {
     return sessions.has(this.sessionId)
   }
+}
+
+// Check if session exists without creating new one
+export function hasExistingSession(sessionId: string): boolean {
+  return sessions.has(sessionId)
 }
 
 // Get existing session or create new one

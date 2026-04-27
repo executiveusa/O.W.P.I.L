@@ -44,7 +44,8 @@ export async function POST(req: Request) {
     const body = await req.text()
     const publicKey = process.env.DISCORD_PUBLIC_KEY || ''
     
-    if (!verifyDiscordSignature(signature, timestamp, body, publicKey)) {
+    const isValid = await verifyDiscordSignature(signature, timestamp, body, publicKey)
+    if (!isValid) {
       return new Response('Invalid signature', { status: 401 })
     }
     

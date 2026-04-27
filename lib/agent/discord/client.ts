@@ -200,22 +200,49 @@ export class DiscordClient {
   }
 }
 
-// Verify Discord webhook signature
-export function verifyDiscordSignature(
+// Verify Discord webhook signature using Ed25519
+export async function verifyDiscordSignature(
   signature: string,
   timestamp: string,
   body: string,
   publicKey: string
-): boolean {
-  // In production, use tweetnacl or similar to verify
-  // For now, skip verification in development
-  if (process.env.NODE_ENV === 'development') {
-    return true
+): Promise<boolean> {
+  if (!signature || !timestamp || !body || !publicKey) {
+    return false
   }
-  
-  // Production verification would use:
-  // const nacl = require('tweetnacl')
-  // const isValid = nacl.sign.detached.verify(...)
-  
-  return !!signature && !!timestamp && !!body && !!publicKey
+
+  try {
+    // Convert hex strings to Uint8Array
+    const signatureBytes = hexToUint8Array(signature)
+    const publicKeyBytes = hexToUint8Array(publicKey)
+    const message = new TextEncoder().encode(timestamp + body)
+
+    // Import the public key for Ed25519 verification
+    const key = await crypto.subtle.importKey(
+      'raw',
+      publicKeyBytes,
+      { name: 'Ed25519' },
+      false,
+      ['verify']
+    )
+
+    // Verify the signature
+    const isValid = await crypto.subtle.verify(
+      'Ed25519',
+      key,
+      signatureBytes,
+      message
+    )
+
+    return isValid
+  } catch (error) {
+    console.error('Discord signature verification failed:', error)
+    return false
+  }
+}
+
+function hexToUint8Array(hex: string): Uint8Array {
+  const matches = hex.match(/.{1,2}/g)
+  if (!matches) return new Uint8Array()
+  return new Uint8Array(matches.map(byte => parseInt(byte, 16)))
 }

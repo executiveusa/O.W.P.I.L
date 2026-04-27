@@ -1,14 +1,39 @@
-import { getBrowserController } from '@/lib/agent/browser/controller'
+import { getBrowserController, hasExistingSession } from '@/lib/agent/browser/controller'
+import { createClient } from '@/lib/supabase/server'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
 
-// Browser control actions
+// Auth check helper
+async function requireAuth(): Promise<{ authorized: boolean; userId?: string; error?: Response }> {
+  const supabase = await createClient()
+  const { data: { user }, error } = await supabase.auth.getUser()
+  
+  if (error || !user) {
+    return {
+      authorized: false,
+      error: new Response(
+        JSON.stringify({ error: 'Unauthorized - please sign in' }),
+        { status: 401, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+  }
+  
+  return { authorized: true, userId: user.id }
+}
+
+// Browser control actions (requires auth)
 export async function POST(req: Request) {
+  // Require authentication
+  const auth = await requireAuth()
+  if (!auth.authorized) return auth.error!
+
   try {
     const { action, sessionId, ...params } = await req.json()
     
-    const controller = await getBrowserController(sessionId)
+    // Scope session to authenticated user
+    const userSessionId = sessionId ? `${auth.userId}-${sessionId}` : auth.userId
+    const controller = await getBrowserController(userSessionId)
     
     let result: unknown
     
@@ -78,8 +103,12 @@ export async function POST(req: Request) {
   }
 }
 
-// Get session status
+// Get session status (requires auth, doesn't create new session)
 export async function GET(req: Request) {
+  // Require authentication
+  const auth = await requireAuth()
+  if (!auth.authorized) return auth.error!
+
   const { searchParams } = new URL(req.url)
   const sessionId = searchParams.get('sessionId')
   
@@ -90,20 +119,17 @@ export async function GET(req: Request) {
     )
   }
   
-  try {
-    const controller = await getBrowserController(sessionId)
-    
-    return new Response(
-      JSON.stringify({ 
-        active: controller.isActive(),
-        sessionId: controller.getSessionId(),
-      }),
-      { headers: { 'Content-Type': 'application/json' } }
-    )
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ active: false, error: 'Session not found' }),
-      { status: 404, headers: { 'Content-Type': 'application/json' } }
-    )
-  }
+  // Scope session to authenticated user
+  const userSessionId = `${auth.userId}-${sessionId}`
+  
+  // Check if session exists without creating a new one
+  const exists = hasExistingSession(userSessionId)
+  
+  return new Response(
+    JSON.stringify({ 
+      active: exists,
+      sessionId: exists ? userSessionId : null,
+    }),
+    { headers: { 'Content-Type': 'application/json' } }
+  )
 }
