@@ -76,7 +76,9 @@ export class AgentMemory {
   }
   
   getTask(taskId: string): AgentTask | undefined {
-    return activeTasks.get(taskId)
+    // Only return task if it belongs to this session (prevents cross-session leakage)
+    const task = this.session.tasks.find(t => t.id === taskId)
+    return task
   }
   
   updateTask(taskId: string, updates: Partial<AgentTask>): void {

@@ -8,7 +8,11 @@ const PROJECT_ROOT = process.cwd()
 
 function isPathSafe(filePath: string): boolean {
   const resolved = path.resolve(PROJECT_ROOT, filePath)
-  return resolved.startsWith(PROJECT_ROOT)
+  // Use path.relative to check if the resolved path is within PROJECT_ROOT
+  // This prevents sibling directory prefix attacks
+  const relative = path.relative(PROJECT_ROOT, resolved)
+  // If relative path starts with '..' or is absolute, it's outside PROJECT_ROOT
+  return !relative.startsWith('..') && !path.isAbsolute(relative)
 }
 
 export const fileSkills: AgentSkill[] = [
