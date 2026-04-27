@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { Playfair_Display, Space_Mono } from "next/font/google"
+import { I18nProvider } from "@/lib/i18n/context"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -20,6 +21,12 @@ export const metadata: Metadata = {
   description: "Tyshawn Morehead — Artist, storyteller, and creator. Showing the world how anime is life.",
   keywords: ["Tyshawn Morehead", "OWPIL", "artist", "anime", "purpose", "storyteller"],
   authors: [{ name: "Tyshawn Morehead" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "OWPIL",
+  },
   openGraph: {
     title: "O.W.P.I.L — One Without Purpose Is Lost",
     description: "Tyshawn Morehead — Artist, storyteller, and creator.",
@@ -40,7 +47,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${playfair.variable} ${spaceMono.variable} bg-background scroll-smooth`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <I18nProvider>
+          {children}
+        </I18nProvider>
+      </body>
     </html>
   )
 }

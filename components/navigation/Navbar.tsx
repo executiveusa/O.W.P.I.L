@@ -2,17 +2,20 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { LanguageToggle } from "./LanguageToggle"
+import { useI18n } from "@/lib/i18n/context"
 
-const navLinks = [
-  { href: "#journey", label: "Journey" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#philosophy", label: "Philosophy" },
-  { href: "#connect", label: "Connect" },
+const navLinkKeys = [
+  { href: "#journey", key: "nav.journey" },
+  { href: "#gallery", key: "nav.gallery" },
+  { href: "#philosophy", key: "nav.philosophy" },
+  { href: "#connect", key: "nav.connect" },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { t } = useI18n()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,15 +45,18 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {navLinkKeys.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="font-mono text-xs tracking-[0.15em] uppercase text-muted-foreground transition-colors hover:text-foreground"
               >
-                {link.label}
+                {t(link.key)}
               </Link>
             ))}
+            
+            {/* Language Toggle */}
+            <LanguageToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -80,20 +86,25 @@ export function Navbar() {
         {/* Mobile Menu */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-500 ${
-            menuOpen ? "max-h-64 opacity-100 mt-6" : "max-h-0 opacity-0"
+            menuOpen ? "max-h-80 opacity-100 mt-6" : "max-h-0 opacity-0"
           }`}
         >
           <div className="flex flex-col gap-4 pb-4">
-            {navLinks.map((link) => (
+            {navLinkKeys.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="font-mono text-sm tracking-[0.15em] uppercase text-muted-foreground transition-colors hover:text-foreground"
               >
-                {link.label}
+                {t(link.key)}
               </Link>
             ))}
+            
+            {/* Language Toggle for mobile */}
+            <div className="pt-4 border-t border-border/30">
+              <LanguageToggle />
+            </div>
           </div>
         </div>
       </div>
