@@ -1,19 +1,22 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { 
   MessageSquare, 
   Wrench, 
   FileEdit, 
   Globe, 
-  Mic, 
   Home,
   Settings,
   Menu,
-  X
+  X,
+  LogOut,
+  User
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import type { User as SupabaseUser } from '@supabase/supabase-js'
 
 const navItems = [
   { href: '/dashboard', label: 'Chat', icon: MessageSquare },
@@ -28,7 +31,33 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [user, setUser] = useState<SupabaseUser | null>(null)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  
+  useEffect(() => {
+    const supabase = createClient()
+    
+    // Get initial user
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user)
+    })
+    
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    
+    return () => subscription.unsubscribe()
+  }, [])
+  
+  const handleLogout = async () => {
+    setIsLoggingOut(true)
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/auth/login')
+  }
   
   return (
     <div className="min-h-screen bg-background flex">
@@ -63,6 +92,25 @@ export default function DashboardLayout({
               <X size={20} />
             </button>
           </div>
+          
+          {/* User info */}
+          {user && (
+            <div className="p-4 border-b border-border">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                  <User size={18} className="text-accent" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-foreground truncate">
+                    {user.email?.split('@')[0]}
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {user.email}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-1">
@@ -102,6 +150,14 @@ export default function DashboardLayout({
             <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-mono text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors">
               <Settings size={18} />
               Settings
+            </button>
+            <button 
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-mono text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors disabled:opacity-50"
+            >
+              <LogOut size={18} />
+              {isLoggingOut ? 'Signing out...' : 'Sign Out'}
             </button>
           </div>
         </div>
