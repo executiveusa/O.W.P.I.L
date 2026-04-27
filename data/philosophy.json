@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Purpose Over Profit",
+    "description": "Every action should be driven by meaning, not material gain. When you find your purpose, success follows naturally.",
+    "icon": "compass"
+  },
+  {
+    "title": "Authentic Expression",
+    "description": "True art comes from within. Don't create for the algorithm - create for the soul.",
+    "icon": "heart"
+  },
+  {
+    "title": "Continuous Growth",
+    "description": "Every day is an opportunity to learn something new. Stay curious, stay humble, stay hungry.",
+    "icon": "trending-up"
+  },
+  {
+    "title": "Community First",
+    "description": "We rise by lifting others. Build bridges, not walls. Share knowledge freely.",
+    "icon": "users"
+  },
+  {
+    "title": "Global Perspective",
+    "description": "Travel opens the mind. Experience different cultures to understand our shared humanity.",
+    "icon": "globe"
+  },
+  {
+    "title": "Creative Courage",
+    "description": "Fear is the enemy of creation. Take risks, embrace failure, and keep pushing boundaries.",
+    "icon": "zap"
+  }
+]

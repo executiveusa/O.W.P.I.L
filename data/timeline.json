@@ -1,0 +1,44 @@
+{
+  "past": [
+    {
+      "title": "The Beginning",
+      "description": "Where the journey started - discovering purpose through creativity and exploration.",
+      "year": "2018",
+      "image": null
+    },
+    {
+      "title": "First Steps",
+      "description": "Learning the craft, making mistakes, and growing through every challenge.",
+      "year": "2019",
+      "image": null
+    }
+  ],
+  "present": [
+    {
+      "title": "The Paulie Effect",
+      "description": "Building a platform for creative expression and meaningful connections.",
+      "year": "2024",
+      "image": null
+    },
+    {
+      "title": "World Explorer",
+      "description": "Traveling across continents, capturing stories, and sharing perspectives.",
+      "year": "Now",
+      "image": null
+    }
+  ],
+  "future": [
+    {
+      "title": "The Vision",
+      "description": "Expanding the creative universe and inspiring the next generation.",
+      "year": "Tomorrow",
+      "image": null
+    },
+    {
+      "title": "Legacy Building",
+      "description": "Creating lasting impact through art, music, and community.",
+      "year": "Beyond",
+      "image": null
+    }
+  ]
+}
