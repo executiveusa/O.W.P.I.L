@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   description: "Tyshawn Morehead — Artist, storyteller, and creator. Showing the world how anime is life.",
   keywords: ["Tyshawn Morehead", "OWPIL", "artist", "anime", "purpose", "storyteller"],
   authors: [{ name: "Tyshawn Morehead" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "OWPIL",
+  },
   openGraph: {
     title: "O.W.P.I.L — One Without Purpose Is Lost",
     description: "Tyshawn Morehead — Artist, storyteller, and creator.",
