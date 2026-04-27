@@ -12,7 +12,8 @@ import {
   Menu,
   X,
   LogOut,
-  User
+  User,
+  Bot
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -20,6 +21,7 @@ import type { User as SupabaseUser } from '@supabase/supabase-js'
 
 const navItems = [
   { href: '/dashboard', label: 'Chat', icon: MessageSquare },
+  { href: '/dashboard/agent', label: 'Agent', icon: Bot },
   { href: '/dashboard/tools', label: 'Tools', icon: Wrench },
   { href: '/dashboard/editor', label: 'Editor', icon: FileEdit },
   { href: '/dashboard/browser', label: 'Browser', icon: Globe },
