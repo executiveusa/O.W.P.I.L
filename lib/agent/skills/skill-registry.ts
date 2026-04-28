@@ -64,6 +64,7 @@ import { codemunchSkills } from './built-in/codemunch-skills'
 import { graphifySkills } from './built-in/graphify-skills'
 import { storytoolkitSkills } from './built-in/storytoolkit-skills'
 import { youtubeSkills } from './built-in/youtube-skills'
+import { composioSkills } from './built-in/composio-skills'
 
 export function registerBuiltInSkills(): void {
   // File operations
@@ -98,6 +99,9 @@ export function registerBuiltInSkills(): void {
 
   // YouTube — channel management, analytics, video control
   youtubeSkills.forEach(skill => skillRegistry.register(skill))
+
+  // Composio — 500+ managed integrations (Gmail, GitHub, Slack, Notion, Salesforce, HubSpot, etc.)
+  composioSkills.forEach(skill => skillRegistry.register(skill))
 }
 
 // Auto-register on import
