@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next"
-import { Playfair_Display, Space_Mono } from "next/font/google"
+import { Playfair_Display, Space_Mono, Dancing_Script } from "next/font/google"
+import { ThemeProvider } from "@/components/providers/ThemeProvider"
+import { I18nProvider } from "@/lib/i18n/context"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -12,6 +14,13 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-space-mono",
+  display: "swap",
+})
+
+const dancingScript = Dancing_Script({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-dancing",
   display: "swap",
 })
 
@@ -34,7 +43,10 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f0e8" },
+  ],
   width: "device-width",
   initialScale: 1,
 }
@@ -45,8 +57,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${spaceMono.variable} bg-background scroll-smooth`}>
-      <body className="antialiased">{children}</body>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${playfair.variable} ${spaceMono.variable} ${dancingScript.variable} scroll-smooth`}
+    >
+      <body className="antialiased bg-background text-foreground">
+        <ThemeProvider>
+          <I18nProvider>{children}</I18nProvider>
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

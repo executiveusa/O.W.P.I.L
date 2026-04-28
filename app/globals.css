@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* Dark mode (default) */
+:root,
+.dark {
   --background: 0 0% 4%;
   --foreground: 0 0% 91%;
   --card: 0 0% 8%;
@@ -25,6 +27,30 @@
   --radius: 0.5rem;
 }
 
+/* Light mode — warm parchment, ink, and gold */
+.light {
+  --background: 36 33% 96%;
+  --foreground: 0 0% 8%;
+  --card: 36 20% 92%;
+  --card-foreground: 0 0% 8%;
+  --popover: 36 20% 92%;
+  --popover-foreground: 0 0% 8%;
+  --primary: 40 55% 42%;
+  --primary-foreground: 36 33% 96%;
+  --secondary: 36 15% 86%;
+  --secondary-foreground: 0 0% 8%;
+  --muted: 36 15% 88%;
+  --muted-foreground: 0 0% 38%;
+  --accent: 174 50% 38%;
+  --accent-foreground: 36 33% 96%;
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 36 33% 96%;
+  --border: 36 10% 82%;
+  --input: 36 10% 82%;
+  --ring: 40 55% 42%;
+  --radius: 0.5rem;
+}
+
 * {
   border-color: hsl(var(--border));
 }
@@ -33,6 +59,119 @@ body {
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-space-mono), monospace;
+}
+
+/* Dancing Script for handwriting */
+.font-handwriting {
+  font-family: var(--font-dancing), cursive;
+}
+
+/* Tegaki / handwriting stroke animation */
+@keyframes stroke-draw {
+  from {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Typewriter for handwriting text */
+@keyframes typewriter {
+  from { width: 0; opacity: 0; }
+  1% { opacity: 1; }
+  to { width: 100%; opacity: 1; }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { border-right-color: transparent; }
+  50% { border-right-color: hsl(var(--primary)); }
+}
+
+.tegaki-write {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid transparent;
+  animation:
+    typewriter 2.5s steps(30, end) forwards,
+    blink-cursor 0.7s step-end 8;
+  animation-delay: 1.2s;
+  opacity: 0;
+  width: 0;
+}
+
+/* Quote reveal animation */
+@keyframes quote-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.quote-reveal {
+  animation: quote-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+/* Attribution line */
+@keyframes attribution-appear {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.attribution-appear {
+  animation: attribution-appear 0.8s ease-out forwards;
+  animation-delay: 3.8s;
+  opacity: 0;
+}
+
+/* Floating dot navigation */
+.nav-dot {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-dot-active {
+  background-color: hsl(var(--primary));
+  transform: scale(1.4);
+}
+
+/* Section fade-in — no stagger, immediate on enter */
+@keyframes section-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-enter {
+  animation: section-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Wordmark glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 40px rgba(196,162,101,0.3), 0 0 80px rgba(196,162,101,0.1); }
+  50% { text-shadow: 0 0 60px rgba(196,162,101,0.5), 0 0 120px rgba(196,162,101,0.2); }
+}
+
+.glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
 }
 
 /* Film Grain Overlay */

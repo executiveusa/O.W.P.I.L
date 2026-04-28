@@ -2,118 +2,182 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { ThemeToggle } from "./ThemeToggle"
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { useI18n } from "@/lib/i18n/context"
 
-const navLinks = [
-  { href: "#journey", label: "Journey" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#philosophy", label: "Philosophy" },
-  { href: "#connect", label: "Connect" },
+const sectionLinks = [
+  { href: "/#journey",    key: "nav.journey" },
+  { href: "/#gallery",    key: "nav.gallery" },
+  { href: "/#philosophy", key: "nav.philosophy" },
+  { href: "/#connect",    key: "nav.connect" },
+]
+
+const pageLinks = [
+  { href: "/documentary", key: "nav.documentary" },
+  { href: "/merch",       key: "nav.merch" },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const { t } = useI18n()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100)
-    }
-    window.addEventListener("scroll", handleScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => { setMenuOpen(false) }, [pathname])
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md border-b border-border/50"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled || menuOpen
+          ? "bg-background/95 backdrop-blur-md border-b border-border/30"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="font-serif text-xl tracking-[0.2em] text-foreground transition-colors hover:text-primary"
-          >
-            O.W.P.I.L
-          </Link>
+      <nav className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="font-mono text-xs tracking-[0.15em] uppercase text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
-            
-            {/* Dashboard Link */}
+        {/* Wordmark */}
+        <Link
+          href="/"
+          className="font-serif text-xl tracking-[0.2em] text-foreground hover:text-primary transition-colors duration-300"
+        >
+          O.W.P.I.L
+        </Link>
+
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-1">
+          {sectionLinks.map((link) => (
             <Link
-              href="/dashboard"
-              className="ml-4 px-4 py-2 bg-accent/10 border border-accent/30 rounded-md font-mono text-xs tracking-[0.15em] uppercase text-accent transition-all hover:bg-accent hover:text-background"
+              key={link.href}
+              href={link.href}
+              className="px-3 py-2 font-mono text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
-              Dashboard
+              {t(link.key)}
             </Link>
-          </div>
+          ))}
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden relative w-8 h-6 flex flex-col justify-between"
-            aria-label="Toggle menu"
+          {/* Divider */}
+          <span className="mx-2 h-4 w-px bg-border/50" aria-hidden />
+
+          {pageLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`px-3 py-2 font-mono text-[11px] tracking-[0.15em] uppercase transition-colors duration-300 ${
+                pathname === link.href
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {t(link.key)}
+            </Link>
+          ))}
+
+          {/* Language switcher */}
+          <LanguageSwitcher />
+
+          {/* X / Twitter */}
+          <a
+            href="https://x.com/TyshawnMor90261"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Tyshawn on X (Twitter)"
+            className="ml-1 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-300"
           >
-            <span
-              className={`block h-0.5 w-full bg-foreground transition-all duration-300 ${
-                menuOpen ? "rotate-45 translate-y-2.5" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-full bg-foreground transition-all duration-300 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-full bg-foreground transition-all duration-300 ${
-                menuOpen ? "-rotate-45 -translate-y-2.5" : ""
-              }`}
-            />
-          </button>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+
+          {/* Theme toggle */}
+          <ThemeToggle />
+
+          {/* Dashboard CTA */}
+          <Link
+            href="/dashboard"
+            className="ml-3 px-5 py-2 border border-primary/40 bg-primary/10 font-mono text-[11px] tracking-[0.15em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-300"
+          >
+            {t("nav.dashboard")}
+          </Link>
         </div>
 
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-500 ${
-            menuOpen ? "max-h-80 opacity-100 mt-6" : "max-h-0 opacity-0"
-          }`}
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen((v) => !v)}
+          className="md:hidden flex flex-col justify-between w-7 h-5"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
-          <div className="flex flex-col gap-4 pb-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="font-mono text-sm tracking-[0.15em] uppercase text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
-            
-            {/* Dashboard Link for mobile */}
+          <span className={`block h-px w-full bg-foreground transition-all duration-300 origin-left ${menuOpen ? "rotate-45 translate-y-px" : ""}`} />
+          <span className={`block h-px w-full bg-foreground transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
+          <span className={`block h-px w-full bg-foreground transition-all duration-300 origin-left ${menuOpen ? "-rotate-45 -translate-y-px" : ""}`} />
+        </button>
+      </nav>
+
+      {/* Mobile drawer */}
+      <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${menuOpen ? "max-h-[32rem]" : "max-h-0"}`}>
+        <div className="flex flex-col px-6 pb-8 pt-2 bg-background border-b border-border/30">
+          <p className="font-mono text-[9px] tracking-[0.35em] text-muted-foreground/50 uppercase pt-5 pb-3">
+            Explore
+          </p>
+          {sectionLinks.map((link) => (
             <Link
-              href="/dashboard"
-              onClick={() => setMenuOpen(false)}
-              className="mt-4 px-4 py-3 bg-accent/10 border border-accent/30 rounded-md font-mono text-sm tracking-[0.15em] uppercase text-accent text-center transition-all hover:bg-accent hover:text-background"
+              key={link.href}
+              href={link.href}
+              className="py-3 font-mono text-sm tracking-[0.15em] uppercase text-muted-foreground border-b border-border/10 hover:text-foreground transition-colors duration-200"
             >
-              Dashboard
+              {t(link.key)}
             </Link>
+          ))}
+
+          <p className="font-mono text-[9px] tracking-[0.35em] text-muted-foreground/50 uppercase pt-6 pb-3">
+            Pages
+          </p>
+          {pageLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`py-3 font-mono text-sm tracking-[0.15em] uppercase border-b border-border/10 transition-colors duration-200 ${
+                pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {t(link.key)}
+            </Link>
+          ))}
+
+          <Link
+            href="/dashboard"
+            className="mt-6 py-4 text-center border border-primary/40 bg-primary/10 font-mono text-sm tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-300"
+          >
+            {t("nav.dashboard")}
+          </Link>
+
+          {/* Bottom row — X link + lang + theme */}
+          <div className="mt-6 flex items-center justify-between gap-3">
+            <a
+              href="https://x.com/TyshawnMor90261"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 font-mono text-xs tracking-[0.15em] text-muted-foreground hover:text-primary transition-colors duration-200"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              @TyshawnMor90261
+            </a>
+            <div className="flex items-center gap-1">
+              <LanguageSwitcher />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>
-    </nav>
+    </header>
   )
 }

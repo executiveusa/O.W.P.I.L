@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 const philosophyItems = [
   {
@@ -32,6 +33,7 @@ const philosophyItems = [
 export function PhilosophySection() {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const { t } = useI18n()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -74,7 +76,7 @@ export function PhilosophySection() {
             Core Beliefs
           </span>
           <h2 className="mt-4 font-serif text-4xl md:text-5xl lg:text-6xl tracking-wide text-foreground">
-            Philosophy
+            {t("philosophy.title")}
           </h2>
           <p className="mt-4 max-w-2xl mx-auto font-mono text-sm text-muted-foreground">
             The principles that guide the journey — a framework for living with intention.

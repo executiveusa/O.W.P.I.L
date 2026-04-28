@@ -1,17 +1,17 @@
 import { HeroSection } from "@/components/hero/HeroSection"
 import { Navbar } from "@/components/navigation/Navbar"
+import { FloatingNav } from "@/components/navigation/FloatingNav"
 import { TimelineSection } from "@/components/sections/TimelineSection"
 import { GallerySection } from "@/components/sections/GallerySection"
 import { PhilosophySection } from "@/components/sections/PhilosophySection"
 import { ConnectSection } from "@/components/sections/ConnectSection"
 import { Footer } from "@/components/footer/Footer"
-import { PageNavigation } from "@/components/navigation/PageNavigation"
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <PageNavigation />
+      <FloatingNav />
       <main>
         <div id="hero-section">
           <HeroSection />

@@ -1,12 +1,13 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
+import { useI18n } from "@/lib/i18n/context"
 
 const socialLinks = [
-  { name: "Instagram", href: "#", icon: "instagram" },
-  { name: "YouTube", href: "#", icon: "youtube" },
-  { name: "Twitter", href: "#", icon: "twitter" },
-  { name: "Email", href: "mailto:contact@owpil.com", icon: "email" },
+  { name: "Instagram", href: "https://instagram.com/tyshawnmorehead", icon: "instagram" },
+  { name: "YouTube", href: "https://youtube.com/@tyshawnmorehead", icon: "youtube" },
+  { name: "X / Twitter", href: "https://x.com/TyshawnMor90261", icon: "twitter" },
+  { name: "Email", href: "mailto:executiveusa@protonmail.me", icon: "email" },
 ]
 
 function SocialIcon({ icon }: { icon: string }) {
@@ -88,6 +89,7 @@ function SocialIcon({ icon }: { icon: string }) {
 export function ConnectSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const { t } = useI18n()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -121,10 +123,10 @@ export function ConnectSection() {
             }`}
           >
             <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">
-              Get In Touch
+              {t("connect.subtitle")}
             </span>
             <h2 className="mt-4 font-serif text-4xl md:text-5xl tracking-wide text-foreground">
-              Let&apos;s Connect
+              {t("connect.title")}
             </h2>
             <p className="mt-4 font-mono text-sm leading-relaxed text-muted-foreground">
               Whether you want to collaborate on a project, discuss philosophy over coffee,
@@ -134,7 +136,7 @@ export function ConnectSection() {
             {/* Newsletter signup */}
             <div className="mt-8">
               <p className="font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase mb-3">
-                Join the journey
+                {t("connect.join")}
               </p>
               <div className="flex gap-3">
                 <input
@@ -143,7 +145,7 @@ export function ConnectSection() {
                   className="flex-1 px-4 py-3 bg-background border border-border font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                 />
                 <button className="px-6 py-3 bg-primary text-primary-foreground font-mono text-sm tracking-[0.1em] uppercase hover:bg-primary/90 transition-colors">
-                  Subscribe
+                  {t("connect.subscribe")}
                 </button>
               </div>
             </div>
@@ -160,6 +162,8 @@ export function ConnectSection() {
                 <a
                   key={link.name}
                   href={link.href}
+                  target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                  rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
                   className="group flex items-center gap-4 p-6 border border-border/50 bg-background hover:border-primary/50 transition-all duration-300"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >

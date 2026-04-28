@@ -61,6 +61,9 @@ import { discordSkills } from './built-in/discord-skills'
 import { animeSkills } from './built-in/anime-skills'
 import { emailSkills } from './built-in/email-skills'
 import { codemunchSkills } from './built-in/codemunch-skills'
+import { graphifySkills } from './built-in/graphify-skills'
+import { storytoolkitSkills } from './built-in/storytoolkit-skills'
+import { youtubeSkills } from './built-in/youtube-skills'
 
 export function registerBuiltInSkills(): void {
   // File operations
@@ -86,6 +89,15 @@ export function registerBuiltInSkills(): void {
   
   // jCodeMunch MCP - Token-efficient code exploration
   codemunchSkills.forEach(skill => skillRegistry.register(skill))
+  
+  // Graphify - Knowledge graph builder
+  graphifySkills.forEach(skill => skillRegistry.register(skill))
+
+  // StoryToolkitAI - Film editing, transcription, and footage intelligence
+  storytoolkitSkills.forEach(skill => skillRegistry.register(skill))
+
+  // YouTube — channel management, analytics, video control
+  youtubeSkills.forEach(skill => skillRegistry.register(skill))
 }
 
 // Auto-register on import
