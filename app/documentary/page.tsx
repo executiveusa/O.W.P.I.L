@@ -50,51 +50,37 @@ export default function DocumentaryPage() {
       </div>
 
       {/* Hero */}
-      <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0">
-          <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223927-zBZWkZCWVe2dUPPHPV4MvRLg6CYypf.jpg"
-            alt="O.W.P.I.L Documentary"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background/95" />
-        </div>
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-16">
+        {/* Dark background */}
+        <div className="absolute inset-0 bg-background" />
 
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <div className="relative z-10 flex flex-col items-center px-6 w-full max-w-5xl mx-auto">
           {/* Pre-label */}
-          <p className="font-mono text-[10px] tracking-[0.5em] uppercase text-primary mb-6">
+          <p className="font-mono text-[10px] tracking-[0.6em] uppercase text-primary mb-10">
             Coming Fall 2026
           </p>
 
-          {/* Title */}
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl tracking-wide text-foreground leading-tight">
-            O.W.P.I.L
-          </h1>
-
-          <div className="mt-3 flex items-center justify-center gap-4">
-            <div className="h-px w-12 bg-primary/60" />
-            <p className="font-mono text-xs tracking-[0.3em] uppercase text-muted-foreground">
-              One Without Purpose Is Lost
-            </p>
-            <div className="h-px w-12 bg-primary/60" />
+          {/* Poster — the hero visual */}
+          <div className="relative w-full max-w-lg mx-auto rounded-sm overflow-hidden shadow-2xl shadow-black/60">
+            <Image
+              src="/images/owpil-documentary-poster.jpg"
+              alt="O.W.P.I.L — One Without Purpose Is Lost — Documentary Fall 2026"
+              width={1080}
+              height={1080}
+              className="w-full h-auto"
+              priority
+            />
           </div>
 
-          <p className="mt-4 font-serif text-2xl md:text-3xl italic text-foreground/80">
-            The Documentary
-          </p>
-
-          <p className="mt-8 font-mono text-sm leading-relaxed text-muted-foreground max-w-xl mx-auto">
+          <p className="mt-10 font-mono text-sm leading-relaxed text-muted-foreground max-w-xl mx-auto text-center">
             A cinematic journey through purpose, identity, and the pursuit of meaning.
             The story of Tyshawn Morehead — told through his own eyes.
           </p>
 
           {/* Scroll cue */}
-          <div className="mt-12 flex flex-col items-center gap-2 animate-pulse-down">
+          <div className="mt-10 flex flex-col items-center gap-2">
             <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground/50">Sign up below</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground/50"/>
             </svg>
           </div>
