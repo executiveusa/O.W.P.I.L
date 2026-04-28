@@ -27,16 +27,6 @@ const heroImages = [
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223927-zBZWkZCWVe2dUPPHPV4MvRLg6CYypf.jpg",
     alt: "Tyshawn overlooking a vast mountain valley",
   },
-  {
-    // Placeholder for VideoCapture_20201022-222052.jpg — swap src once uploaded to Vercel Blob
-    src: "/images/hero-tyshawn-1.jpg",
-    alt: "Tyshawn overlooking a historic Mediterranean coastal city",
-  },
-  {
-    // Placeholder for 20201023_224212.heic — swap src once uploaded to Vercel Blob
-    src: "/images/hero-tyshawn-2.jpg",
-    alt: "Tyshawn standing on a rocky Adriatic beach at dusk",
-  },
 ]
 
 export function HeroSection() {
