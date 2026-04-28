@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { OWPILWordmark } from "./OWPILWordmark"
 import { ScrollIndicator } from "./ScrollIndicator"
-import { useI18n } from "@/lib/i18n/context"
 
 const heroImages = [
   {
@@ -32,7 +31,6 @@ const heroImages = [
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
-  const { t } = useI18n()
 
   const nextImage = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % heroImages.length)
@@ -90,7 +88,7 @@ export function HeroSection() {
             isLoaded ? "animate-reveal" : "opacity-0"
           }`}
         >
-          {t("hero.tagline")}
+          One Without Purpose Is Lost
         </p>
 
         {/* Subtle attribution */}
