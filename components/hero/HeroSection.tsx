@@ -27,6 +27,14 @@ const heroImages = [
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223927-zBZWkZCWVe2dUPPHPV4MvRLg6CYypf.jpg",
     alt: "Tyshawn overlooking a vast mountain valley",
   },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_165554-LacVRXcI9EcD5iNy5vFQRYbvuuXPr0.jpg",
+    alt: "Hand-colored antique world map from the age of exploration",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_164559-8YspuoPVnSaFIUTlJqQhEw919YjaG6.jpg",
+    alt: "Tyshawn exploring historic fortress weaponry by the Mediterranean",
+  },
 ]
 
 export function HeroSection() {

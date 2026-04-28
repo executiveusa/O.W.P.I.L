@@ -34,6 +34,18 @@ const galleryImages = [
     location: "Montenegro",
     category: "Nature",
   },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_165554-LacVRXcI9EcD5iNy5vFQRYbvuuXPr0.jpg",
+    alt: "Antique world map with age-of-exploration details",
+    location: "Museum",
+    category: "Discovery",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_164559-8YspuoPVnSaFIUTlJqQhEw919YjaG6.jpg",
+    alt: "Tyshawn exploring historic fortress weaponry",
+    location: "Mediterranean",
+    category: "History",
+  },
 ]
 
 function Lightbox({
