@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/hero/HeroSection"
 import { Navbar } from "@/components/navigation/Navbar"
+import { FloatingNav } from "@/components/navigation/FloatingNav"
 import { TimelineSection } from "@/components/sections/TimelineSection"
 import { GallerySection } from "@/components/sections/GallerySection"
 import { PhilosophySection } from "@/components/sections/PhilosophySection"
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <FloatingNav />
       <main>
         <div id="hero-section">
           <HeroSection />

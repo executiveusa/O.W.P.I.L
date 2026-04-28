@@ -31,6 +31,7 @@ const heroImages = [
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [quoteVisible, setQuoteVisible] = useState(false)
 
   const nextImage = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % heroImages.length)
@@ -38,10 +39,13 @@ export function HeroSection() {
 
   useEffect(() => {
     setIsLoaded(true)
+    // Trigger quote after wordmark loads
+    const t = setTimeout(() => setQuoteVisible(true), 900)
+    return () => clearTimeout(t)
   }, [])
 
   useEffect(() => {
-    const interval = setInterval(nextImage, 3000)
+    const interval = setInterval(nextImage, 4000)
     return () => clearInterval(interval)
   }, [nextImage])
 
@@ -69,36 +73,43 @@ export function HeroSection() {
             />
           </div>
         ))}
-        
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background/90" />
-        
-        {/* Warm cinematic color grade */}
-        <div className="absolute inset-0 bg-primary/5 mix-blend-overlay" />
+
+        {/* Cinematic gradient — heavier at bottom for text */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/20 to-background/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6">
-        {/* Main Wordmark */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+        {/* Wordmark */}
         <OWPILWordmark isLoaded={isLoaded} />
 
-        {/* Tagline */}
-        <p
-          className={`mt-6 font-mono text-sm tracking-[0.25em] text-foreground/70 uppercase ${
-            isLoaded ? "animate-reveal" : "opacity-0"
-          }`}
-        >
-          One Without Purpose Is Lost
-        </p>
+        {/* Quote block — Tegaki-inspired handwriting animation */}
+        {quoteVisible && (
+          <div className="mt-10 flex flex-col items-center gap-3">
+            {/* The quote line in serif italic */}
+            <p className="quote-reveal font-serif text-xl md:text-2xl italic text-foreground/90 tracking-wide max-w-xl">
+              &ldquo;One Without Purpose Is Lost&rdquo;
+            </p>
 
-        {/* Subtle attribution */}
-        <p
-          className={`mt-4 font-mono text-xs tracking-wider text-muted-foreground transition-opacity duration-1000 delay-[1.5s] ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          Tyshawn Morehead
-        </p>
+            {/* Handwritten attribution — Dancing Script (Tegaki-style) */}
+            <span
+              className="tegaki-write font-handwriting text-2xl md:text-3xl text-primary"
+              aria-label="Tyshawn Morehead"
+            >
+              Tyshawn Morehead
+            </span>
+
+            {/* Attribution line */}
+            <div className="attribution-appear flex items-center gap-3 mt-1">
+              <div className="h-px w-8 bg-primary/50" />
+              <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+                O.W.P.I.L
+              </span>
+              <div className="h-px w-8 bg-primary/50" />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Image Progress Indicators */}
@@ -107,7 +118,7 @@ export function HeroSection() {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className="group relative h-1 w-8 overflow-hidden bg-foreground/20 transition-all hover:bg-foreground/30"
+            className="group relative h-px w-10 overflow-hidden bg-foreground/20 transition-all hover:bg-foreground/30"
             aria-label={`Go to image ${index + 1}`}
           >
             {index === currentIndex && (

@@ -1,10 +1,23 @@
 import type { Metadata, Viewport } from "next"
-import { Playfair_Display, Space_Mono } from "next/font/google"
-import "./globals.css"
+import { Playfair_Display, Space_Mono, Dancing_Script } from "next/font/google"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  display: "swap",
+})
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
+})
+
+const dancingScript = Dancing_Script({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-dancing",
   display: "swap",
 })
 
@@ -45,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${spaceMono.variable} bg-background scroll-smooth`}>
+    <html lang="en" className={`${playfair.variable} ${spaceMono.variable} ${dancingScript.variable} bg-background scroll-smooth`}>
       <body className="antialiased">{children}</body>
     </html>
   )
