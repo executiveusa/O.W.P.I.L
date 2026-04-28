@@ -42,8 +42,68 @@ const galleryImages = [
   },
   {
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_164559-8YspuoPVnSaFIUTlJqQhEw919YjaG6.jpg",
-    alt: "Tyshawn exploring historic fortress weaponry",
+    alt: "Tyshawn exploring historic fortress weaponry by the Mediterranean",
     location: "Mediterranean",
+    category: "History",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20200930_084719-nPIBJCfPvnOh6mK3X4XQsyxuB6xzRN.jpg",
+    alt: "Tyshawn on boat overlooking Adriatic islands",
+    location: "Montenegro (Adriatic)",
+    category: "Travel",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201010_224405-TJuCymrpa1nrzJADqvvgYF9fECk1Bx.jpg",
+    alt: "Tyshawn with street art mural at night",
+    location: "Serbia (Urban)",
+    category: "Culture",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201101_145142-sXCs6FW2WBeQah2t3JwaunukpZsFgA.jpg",
+    alt: "Tyshawn overlooking Zemun with Arc of Peace bridge",
+    location: "Zemun, Serbia",
+    category: "Travel",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_224212-copy-0-WX4eb5gz0M8XMFRbDcLqBLtbcoeYVY.jpg",
+    alt: "Tyshawn with colorful artwork in studio",
+    location: "Serbia (Creative)",
+    category: "Culture",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201001_132037-copy-0-Y4udeKVFlZKLCbl6JW9mefYDqVEz46.jpg",
+    alt: "Group at ancient stone fortress ruins",
+    location: "Montenegro/Croatia",
+    category: "History",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201010_201108-8g2amC6mMaaZTGzPmwaFxru9zg9ife.jpg",
+    alt: "Tyshawn with friends in medieval old town",
+    location: "Kotor, Montenegro",
+    category: "Travel",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201019_121946-6brUyIFRLUQX98v8Dt19P7BAlr5HA2.jpg",
+    alt: "Tyshawn at monastery built into cliff face",
+    location: "Ostrog, Serbia",
+    category: "Spiritual",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201029_125818-xvaOITcooXTFTd3f7DxpdM9bkA9iSd.jpg",
+    alt: "Tyshawn overlooking Adriatic bay with islands",
+    location: "Adriatic Coast (Montenegro)",
+    category: "Nature",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201010_141753-OSh041uNRWh2Wap5DgM2o9txr3CYIc.jpg",
+    alt: "Tyshawn on rocky overlook of Dalmatian coast",
+    location: "Dalmatian Coast (Croatia)",
+    category: "Nature",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_155640-upgU5dx6RfP0ydAJeve3eHrO7KfbDF.jpg",
+    alt: "Tyshawn on fortress wall overlooking Danube",
+    location: "Danube Fortress, Serbia",
     category: "History",
   },
 ]
@@ -223,7 +283,7 @@ export function GallerySection() {
             Gallery
           </h2>
           <p className="mt-4 max-w-2xl mx-auto font-mono text-sm text-muted-foreground">
-            Moments captured across continents — each frame a window into different worlds.
+            Moments captured across continents �� each frame a window into different worlds.
           </p>
         </div>
 
