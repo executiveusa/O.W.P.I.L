@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:browser-control": "ts-node scripts/test-browser-control.ts"
   },
   "dependencies": {
     "@ai-sdk/react": "^3.0.170",
