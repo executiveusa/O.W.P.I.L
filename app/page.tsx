@@ -5,17 +5,29 @@ import { GallerySection } from "@/components/sections/GallerySection"
 import { PhilosophySection } from "@/components/sections/PhilosophySection"
 import { ConnectSection } from "@/components/sections/ConnectSection"
 import { Footer } from "@/components/footer/Footer"
+import { PageNavigation } from "@/components/navigation/PageNavigation"
 
 export default function Home() {
   return (
     <>
       <Navbar />
+      <PageNavigation />
       <main>
-        <HeroSection />
-        <TimelineSection />
-        <GallerySection />
-        <PhilosophySection />
-        <ConnectSection />
+        <div id="hero-section">
+          <HeroSection />
+        </div>
+        <div id="timeline-section">
+          <TimelineSection />
+        </div>
+        <div id="gallery-section">
+          <GallerySection />
+        </div>
+        <div id="philosophy-section">
+          <PhilosophySection />
+        </div>
+        <div id="connect-section">
+          <ConnectSection />
+        </div>
       </main>
       <Footer />
     </>

@@ -8,6 +8,8 @@ import { useState } from 'react'
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [usePassword, setUsePassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -19,6 +21,21 @@ export default function LoginPage() {
     setError(null)
 
     try {
+      // If password is disabled, only use email
+      if (!usePassword) {
+        const { error } = await supabase.auth.signInWithOtp({
+          email,
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
+          },
+        })
+        if (error) throw error
+        setError(null)
+        alert('Check your email for a magic link to sign in')
+        return
+      }
+
+      // Use password authentication
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -84,7 +101,7 @@ export default function LoginPage() {
                 <input
                   id="email"
                   type="email"
-                  placeholder="tyshawn@owpil.com"
+                  placeholder="tyshawnmorehed102@proton.me"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -92,19 +109,46 @@ export default function LoginPage() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
-                  Password
+              {/* Authentication Method Toggle */}
+              <div className="flex items-center gap-4 p-3 bg-accent/10 border border-accent/30 rounded-md">
+                <label className="flex items-center gap-2 cursor-pointer flex-1">
+                  <input
+                    type="checkbox"
+                    checked={usePassword}
+                    onChange={(e) => setUsePassword(e.target.checked)}
+                    className="w-4 h-4 accent-accent"
+                  />
+                  <span className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
+                    Use Password
+                  </span>
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-background/50 border border-border rounded-md text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
-                />
               </div>
+
+              {/* Password Field - Only show if toggled on */}
+              {usePassword && (
+                <div className="space-y-2 animate-in fade-in">
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="password" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
+                      Password
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="text-xs text-accent hover:text-accent/80 transition-colors"
+                    >
+                      {showPassword ? 'Hide' : 'Show'}
+                    </button>
+                  </div>
+                  <input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    className="w-full px-4 py-3 bg-background/50 border border-border rounded-md text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
+                  />
+                </div>
+              )}
 
               {error && (
                 <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-md">
@@ -123,10 +167,10 @@ export default function LoginPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    Authenticating...
+                    {usePassword ? 'Authenticating...' : 'Sending Magic Link...'}
                   </span>
                 ) : (
-                  'Enter Dashboard'
+                  usePassword ? 'Enter Dashboard' : 'Send Magic Link'
                 )}
               </button>
             </form>

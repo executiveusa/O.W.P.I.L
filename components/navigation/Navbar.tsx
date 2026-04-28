@@ -2,20 +2,17 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { LanguageToggle } from "./LanguageToggle"
-import { useI18n } from "@/lib/i18n/context"
 
-const navLinkKeys = [
-  { href: "#journey", key: "nav.journey" },
-  { href: "#gallery", key: "nav.gallery" },
-  { href: "#philosophy", key: "nav.philosophy" },
-  { href: "#connect", key: "nav.connect" },
+const navLinks = [
+  { href: "#journey", label: "Journey" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#philosophy", label: "Philosophy" },
+  { href: "#connect", label: "Connect" },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const { t } = useI18n()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,18 +42,23 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinkKeys.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="font-mono text-xs tracking-[0.15em] uppercase text-muted-foreground transition-colors hover:text-foreground"
               >
-                {t(link.key)}
+                {link.label}
               </Link>
             ))}
             
-            {/* Language Toggle */}
-            <LanguageToggle />
+            {/* Dashboard Link */}
+            <Link
+              href="/dashboard"
+              className="ml-4 px-4 py-2 bg-accent/10 border border-accent/30 rounded-md font-mono text-xs tracking-[0.15em] uppercase text-accent transition-all hover:bg-accent hover:text-background"
+            >
+              Dashboard
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -90,21 +92,25 @@ export function Navbar() {
           }`}
         >
           <div className="flex flex-col gap-4 pb-4">
-            {navLinkKeys.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="font-mono text-sm tracking-[0.15em] uppercase text-muted-foreground transition-colors hover:text-foreground"
               >
-                {t(link.key)}
+                {link.label}
               </Link>
             ))}
             
-            {/* Language Toggle for mobile */}
-            <div className="pt-4 border-t border-border/30">
-              <LanguageToggle />
-            </div>
+            {/* Dashboard Link for mobile */}
+            <Link
+              href="/dashboard"
+              onClick={() => setMenuOpen(false)}
+              className="mt-4 px-4 py-3 bg-accent/10 border border-accent/30 rounded-md font-mono text-sm tracking-[0.15em] uppercase text-accent text-center transition-all hover:bg-accent hover:text-background"
+            >
+              Dashboard
+            </Link>
           </div>
         </div>
       </div>
