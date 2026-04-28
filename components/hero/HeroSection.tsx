@@ -28,14 +28,52 @@ const heroImages = [
     alt: "Tyshawn overlooking a vast mountain valley",
   },
   {
-    // Placeholder for VideoCapture_20201022-222052.jpg — swap src once uploaded to Vercel Blob
-    src: "/images/hero-tyshawn-1.jpg",
-    alt: "Tyshawn overlooking a historic Mediterranean coastal city",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_165554-LacVRXcI9EcD5iNy5vFQRYbvuuXPr0.jpg",
+    alt: "Hand-colored antique world map from the age of exploration",
   },
   {
-    // Placeholder for 20201023_224212.heic — swap src once uploaded to Vercel Blob
-    src: "/images/hero-tyshawn-2.jpg",
-    alt: "Tyshawn standing on a rocky Adriatic beach at dusk",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_164559-8YspuoPVnSaFIUTlJqQhEw919YjaG6.jpg",
+    alt: "Tyshawn exploring historic fortress weaponry by the Mediterranean",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20200930_084719-nPIBJCfPvnOh6mK3X4XQsyxuB6xzRN.jpg",
+    alt: "Tyshawn on boat overlooking Adriatic islands and coast",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201010_224405-TJuCymrpa1nrzJADqvvgYF9fECk1Bx.jpg",
+    alt: "Tyshawn with vibrant street art mural under night sky",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201101_145142-sXCs6FW2WBeQah2t3JwaunukpZsFgA.jpg",
+    alt: "Tyshawn overlooking Zemun cityscape with Arc of Peace bridge",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_224212-copy-0-WX4eb5gz0M8XMFRbDcLqBLtbcoeYVY.jpg",
+    alt: "Tyshawn with vibrant artwork in creative studio space",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201001_132037-copy-0-Y4udeKVFlZKLCbl6JW9mefYDqVEz46.jpg",
+    alt: "Group gathered at ancient stone fortress ruins",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201010_201108-8g2amC6mMaaZTGzPmwaFxru9zg9ife.jpg",
+    alt: "Tyshawn with friends in historic medieval old town",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201019_121946-6brUyIFRLUQX98v8Dt19P7BAlr5HA2.jpg",
+    alt: "Tyshawn at Ostrog monastery carved into cliff face",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201029_125818-xvaOITcooXTFTd3f7DxpdM9bkA9iSd.jpg",
+    alt: "Tyshawn overlooking vast Adriatic bay with lush islands",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201010_141753-OSh041uNRWh2Wap5DgM2o9txr3CYIc.jpg",
+    alt: "Tyshawn on rocky overlook of the Dalmatian coastline",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/20201023_155640-upgU5dx6RfP0ydAJeve3eHrO7KfbDF.jpg",
+    alt: "Tyshawn on fortress wall overlooking the Danube river",
   },
 ]
 
