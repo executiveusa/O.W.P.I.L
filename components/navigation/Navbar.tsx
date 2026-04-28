@@ -57,6 +57,14 @@ export function Navbar() {
             
             {/* Language Toggle */}
             <LanguageToggle />
+            
+            {/* Dashboard Link */}
+            <Link
+              href="/auth/login"
+              className="ml-4 px-4 py-2 bg-accent/10 border border-accent/30 rounded-md font-mono text-xs tracking-[0.15em] uppercase text-accent transition-all hover:bg-accent hover:text-background"
+            >
+              Dashboard
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -105,6 +113,15 @@ export function Navbar() {
             <div className="pt-4 border-t border-border/30">
               <LanguageToggle />
             </div>
+            
+            {/* Dashboard Link for mobile */}
+            <Link
+              href="/auth/login"
+              onClick={() => setMenuOpen(false)}
+              className="mt-4 px-4 py-3 bg-accent/10 border border-accent/30 rounded-md font-mono text-sm tracking-[0.15em] uppercase text-accent text-center transition-all hover:bg-accent hover:text-background"
+            >
+              Dashboard
+            </Link>
           </div>
         </div>
       </div>
