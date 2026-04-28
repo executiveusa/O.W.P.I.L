@@ -3,169 +3,258 @@
 import { useRef, useEffect, useState } from "react"
 import Image from "next/image"
 
-interface TimelineItem {
-  year: string
-  title: string
-  description: string
-  image?: string
-  quote?: string
-}
+type Era = "past" | "present" | "future"
 
-const timelineData: TimelineItem[] = [
-  {
-    year: "The Past",
-    title: "Roots & Foundation",
-    description: "Every journey begins with a single step. Born with a vision to bridge cultures through art and storytelling, the foundation was laid in the streets and studios of creativity.",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223853-Zd1WofxynLQeIXHsxd4VF21xtFQo2P.jpg",
-    quote: "Know thyself, and you will know the universe.",
-  },
-  {
-    year: "The Present",
-    title: "The Unfolding",
-    description: "Traveling the world, capturing moments that speak louder than words. From the ancient mosaics of monasteries to the shores of distant seas, each location becomes a chapter.",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223631-StlrMIDhRpmffslz73XRRzYB5PzzZb.jpg",
-    quote: "The present is a gift. Unwrap it daily.",
-  },
-  {
-    year: "The Future",
-    title: "Vision Manifest",
-    description: "A documentary in progress. A story yet untold. The future holds the convergence of all dreams — anime, art, philosophy, and the human experience woven into one tapestry.",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223927-zBZWkZCWVe2dUPPHPV4MvRLg6CYypf.jpg",
-    quote: "Purpose is the compass. Passion is the fuel.",
-  },
+const eras: { key: Era; label: string; subtitle: string }[] = [
+  { key: "past",    label: "The Past",    subtitle: "Where it began" },
+  { key: "present", label: "The Present", subtitle: "Where it stands" },
+  { key: "future",  label: "The Future",  subtitle: "Where it is going" },
 ]
 
-function TimelineCard({ item, index }: { item: TimelineItem; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.3 }
-    )
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const isEven = index % 2 === 0
-
-  return (
-    <div
-      ref={cardRef}
-      className={`relative flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${
-        isEven ? "lg:flex-row" : "lg:flex-row-reverse"
-      }`}
-    >
-      {/* Image */}
-      <div
-        className={`relative w-full lg:w-1/2 aspect-[16/10] overflow-hidden transition-all duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-        }`}
-        style={{ transitionDelay: "200ms" }}
-      >
-        {item.image && (
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-      </div>
-
-      {/* Content */}
-      <div
-        className={`w-full lg:w-1/2 transition-all duration-1000 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-        }`}
-        style={{ transitionDelay: "400ms" }}
-      >
-        <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">
-          {item.year}
-        </span>
-        <h3 className="mt-3 font-serif text-3xl md:text-4xl tracking-wide text-foreground">
-          {item.title}
-        </h3>
-        <p className="mt-4 font-mono text-sm leading-relaxed text-muted-foreground">
-          {item.description}
-        </p>
-        {item.quote && (
-          <blockquote className="mt-6 border-l-2 border-primary/50 pl-4">
-            <p className="font-serif text-lg italic text-foreground/80">
-              {`"${item.quote}"`}
-            </p>
-          </blockquote>
-        )}
-      </div>
-    </div>
-  )
+const timelineData: Record<Era, { period: string; title: string; description: string; detail: string; image?: string }[]> = {
+  past: [
+    {
+      period: "Origins",
+      title: "The Foundation",
+      description: "Born into a world of stories. Anime arrived first and never left. The roots of purpose planted early through characters who refused to quit.",
+      detail: "Every shonen protagonist who got back up — Naruto, Luffy, Goku — became a blueprint. Purpose before passion.",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223853-Zd1WofxynLQeIXHsxd4VF21xtFQo2P.jpg",
+    },
+    {
+      period: "Formation",
+      title: "Building the Vision",
+      description: "Years of study, culture, travel. Europe. The streets. The silence between moments. A worldview forged through experience, not textbooks.",
+      detail: "Crossing borders changed the lens. When you see how differently others live, you stop settling for your defaults.",
+    },
+    {
+      period: "The Turning Point",
+      title: "One Without Purpose",
+      description: "The moment the phrase was born. Not from a book — from a feeling. The recognition that drifting without direction is its own kind of suffering.",
+      detail: "O.W.P.I.L was never an acronym first. It was a feeling — one that needed a name.",
+    },
+  ],
+  present: [
+    {
+      period: "Now",
+      title: "Building in Public",
+      description: "Creating the documentary. Building the brand. Sharing the philosophy in real time. The work is the message.",
+      detail: "Every upload, every frame, every post is part of the living document. The project is ongoing.",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223631-StlrMIDhRpmffslz73XRRzYB5PzzZb.jpg",
+    },
+    {
+      period: "Active",
+      title: "The Anime Synthesis",
+      description: "Weaving anime philosophy into real-world strategy. The lessons of the greatest animated storytellers applied to a life fully lived.",
+      detail: "Dragon Ball taught consistency. Fullmetal Alchemist taught equivalent exchange. Hunter x Hunter taught patience under pressure.",
+    },
+    {
+      period: "Community",
+      title: "The Network Expands",
+      description: "Connecting with creators, thinkers, and seekers from every timezone. The mission scales when the message is clear.",
+      detail: "One conversation at a time. One piece of content at a time. The compound effect is real.",
+    },
+  ],
+  future: [
+    {
+      period: "Fall 2026",
+      title: "The Documentary Drops",
+      description: "A full-length documentary capturing the journey, the philosophy, and the people who shaped it. Something the world has not seen.",
+      detail: "Not a highlight reel. A real document. The kind of film that asks you to sit with discomfort and emerge changed.",
+      image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223927-zBZWkZCWVe2dUPPHPV4MvRLg6CYypf.jpg",
+    },
+    {
+      period: "Expansion",
+      title: "O.W.P.I.L Studios",
+      description: "A full creative infrastructure. Production, animation, merchandise, events. The brand becomes a movement with its own gravitational pull.",
+      detail: "The goal was never fame. The goal was always to build something that outlasts any one moment.",
+    },
+    {
+      period: "Legacy",
+      title: "The Archive",
+      description: "A living record — digital, physical, cultural. For the next generation of those who feel lost but are actually just beginning.",
+      detail: "Whoever finds this after we are gone will know: purpose was always the answer.",
+    },
+  ],
 }
 
 export function TimelineSection() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const [isHeaderVisible, setIsHeaderVisible] = useState(false)
+  const sectionRef  = useRef<HTMLElement>(null)
+  const [isVisible, setIsVisible]       = useState(false)
+  const [activeEra, setActiveEra]       = useState<Era>("present")
+  const [expanded,  setExpanded]        = useState<number | null>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsHeaderVisible(true)
-        }
-      },
-      { threshold: 0.2 }
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true) },
+      { threshold: 0.1 }
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
+
+  const handleEraChange = (era: Era) => {
+    setActiveEra(era)
+    setExpanded(null)
+  }
+
+  const items = timelineData[activeEra]
+  const featuredImage = items.find(i => i.image)?.image
 
   return (
     <section
       ref={sectionRef}
       id="journey"
-      className="relative py-24 md:py-32 bg-background"
+      className="relative py-24 md:py-40 bg-background overflow-hidden"
     >
-      <div className="mx-auto max-w-7xl px-6">
-        {/* Section Header */}
-        <div
-          className={`text-center mb-20 transition-all duration-1000 ${
-            isHeaderVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">
-            The Journey
-          </span>
-          <h2 className="mt-4 font-serif text-4xl md:text-5xl lg:text-6xl tracking-wide text-foreground">
+      {/* Background era watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
+        <span className="font-serif font-bold text-foreground/[0.018] tracking-widest uppercase"
+          style={{ fontSize: "clamp(4rem, 20vw, 18rem)" }}>
+          {activeEra}
+        </span>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6">
+
+        {/* Header */}
+        <div className={`mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">The Journey</span>
+          <h2 className="mt-4 font-serif text-5xl md:text-7xl tracking-wide text-foreground">
             Past. Present. Future.
           </h2>
-          <p className="mt-4 max-w-2xl mx-auto font-mono text-sm text-muted-foreground">
-            A visual narrative through time — documenting the evolution of purpose and the pursuit of meaning.
+          <p className="mt-4 font-mono text-sm text-muted-foreground max-w-md leading-relaxed">
+            A visual narrative through time — the evolution of purpose and the pursuit of meaning.
           </p>
         </div>
 
-        {/* Timeline Items */}
-        <div className="space-y-24 md:space-y-32">
-          {timelineData.map((item, index) => (
-            <TimelineCard key={item.year} item={item} index={index} />
+        {/* Era Tabs */}
+        <div className={`flex gap-0 mb-16 border-b border-border/30 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          {eras.map(({ key, label, subtitle }) => (
+            <button
+              key={key}
+              onClick={() => handleEraChange(key)}
+              className={`relative pb-5 pr-10 text-left group transition-all duration-300 ${
+                activeEra === key ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <span className="block font-mono text-[10px] tracking-[0.25em] uppercase mb-1 opacity-60">
+                {subtitle}
+              </span>
+              <span className="font-serif text-xl md:text-2xl">
+                {label}
+              </span>
+              <span className={`absolute bottom-0 left-0 h-px bg-primary transition-all duration-500 ${activeEra === key ? "right-4" : "right-full"}`} />
+            </button>
           ))}
         </div>
-      </div>
 
-      {/* Decorative vertical line */}
-      <div className="hidden lg:block absolute left-1/2 top-48 bottom-24 w-px bg-gradient-to-b from-transparent via-border to-transparent" />
+        {/* Content: two-column on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-20 items-start">
+
+          {/* Left: timeline items */}
+          <div className="relative">
+            {/* Vertical track */}
+            <div className="absolute left-[7px] top-2 bottom-0 w-px bg-border/25" />
+
+            <div className="space-y-0">
+              {items.map((item, index) => (
+                <div
+                  key={`${activeEra}-${index}`}
+                  className={`relative pl-10 pb-10 transition-all duration-700 ${
+                    isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
+                  }`}
+                  style={{ transitionDelay: `${index * 140 + 300}ms` }}
+                >
+                  {/* Dot */}
+                  <div className={`absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full border-2 transition-all duration-400 ${
+                    expanded === index
+                      ? "bg-primary border-primary scale-125"
+                      : "bg-background border-primary/50 hover:border-primary"
+                  }`} />
+
+                  {/* Period label */}
+                  <span className="font-mono text-[10px] tracking-[0.3em] text-primary/70 uppercase">
+                    {item.period}
+                  </span>
+
+                  {/* Title + expand toggle */}
+                  <button
+                    onClick={() => setExpanded(expanded === index ? null : index)}
+                    className="w-full text-left mt-1.5 group/btn"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <h3 className="font-serif text-2xl md:text-3xl text-foreground group-hover/btn:text-primary transition-colors duration-300">
+                        {item.title}
+                      </h3>
+                      <span className={`flex-shrink-0 text-muted-foreground transition-transform duration-300 ${expanded === index ? "rotate-90" : ""}`}>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                          <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </div>
+                    <p className="mt-2 font-mono text-sm text-muted-foreground leading-relaxed max-w-xl">
+                      {item.description}
+                    </p>
+                  </button>
+
+                  {/* Expanded detail */}
+                  <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    expanded === index ? "max-h-32 opacity-100 mt-4" : "max-h-0 opacity-0"
+                  }`}>
+                    <div className="border-l-2 border-primary/30 pl-4">
+                      <p className="font-mono text-sm text-muted-foreground/80 italic leading-relaxed">
+                        {item.detail}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom CTA */}
+            <div className={`mt-8 pt-10 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all duration-1000 delay-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+              <p className="font-serif text-xl text-foreground">
+                The documentary tells what these words cannot.
+              </p>
+              <a
+                href="/documentary"
+                className="flex-shrink-0 px-7 py-3 border border-primary/50 text-primary font-mono text-xs tracking-[0.2em] uppercase hover:bg-primary hover:text-background transition-all duration-300"
+              >
+                Watch the Film
+              </a>
+            </div>
+          </div>
+
+          {/* Right: featured image */}
+          <div className={`hidden lg:block sticky top-32 transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+            <div className="relative aspect-[3/4] overflow-hidden bg-card/30">
+              {featuredImage ? (
+                <Image
+                  src={featuredImage}
+                  alt={`${activeEra} era`}
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-serif text-6xl text-foreground/10 uppercase tracking-widest">
+                    {activeEra}
+                  </span>
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6">
+                <span className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase">
+                  {eras.find(e => e.key === activeEra)?.label}
+                </span>
+                <p className="mt-1 font-serif text-lg text-foreground/90">
+                  {eras.find(e => e.key === activeEra)?.subtitle}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
