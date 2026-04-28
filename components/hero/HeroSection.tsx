@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { OWPILWordmark } from "./OWPILWordmark"
 import { ScrollIndicator } from "./ScrollIndicator"
+import { useI18n } from "@/lib/i18n/context"
 
 const heroImages = [
   {
@@ -32,6 +33,7 @@ export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const [quoteVisible, setQuoteVisible] = useState(false)
+  const { t } = useI18n()
 
   const nextImage = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % heroImages.length)
@@ -89,7 +91,7 @@ export function HeroSection() {
           <div className="mt-10 flex flex-col items-center gap-3">
             {/* The quote line in serif italic */}
             <p className="quote-reveal font-serif text-xl md:text-2xl italic text-foreground/90 tracking-wide max-w-xl">
-              &ldquo;One Without Purpose Is Lost&rdquo;
+              &ldquo;{t("hero.tagline")}&rdquo;
             </p>
 
             {/* Handwritten attribution — Dancing Script (Tegaki-style) */}
@@ -97,7 +99,7 @@ export function HeroSection() {
               className="tegaki-write font-handwriting text-2xl md:text-3xl text-primary"
               aria-label="Tyshawn Morehead"
             >
-              Tyshawn Morehead
+              {t("hero.attribution")}
             </span>
 
             {/* Attribution line */}

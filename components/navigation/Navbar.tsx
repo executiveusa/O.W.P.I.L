@@ -3,23 +3,27 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { ThemeToggle } from "./ThemeToggle"
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { useI18n } from "@/lib/i18n/context"
 
 const sectionLinks = [
-  { href: "/#journey",    label: "Journey" },
-  { href: "/#gallery",    label: "Gallery" },
-  { href: "/#philosophy", label: "Philosophy" },
-  { href: "/#connect",    label: "Connect" },
+  { href: "/#journey",    key: "nav.journey" },
+  { href: "/#gallery",    key: "nav.gallery" },
+  { href: "/#philosophy", key: "nav.philosophy" },
+  { href: "/#connect",    key: "nav.connect" },
 ]
 
 const pageLinks = [
-  { href: "/documentary", label: "Documentary" },
-  { href: "/merch",       label: "Merch" },
+  { href: "/documentary", key: "nav.documentary" },
+  { href: "/merch",       key: "nav.merch" },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
+  const { t } = useI18n()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
@@ -55,7 +59,7 @@ export function Navbar() {
               href={link.href}
               className="px-3 py-2 font-mono text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
             >
-              {link.label}
+              {t(link.key)}
             </Link>
           ))}
 
@@ -72,16 +76,35 @@ export function Navbar() {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {link.label}
+              {t(link.key)}
             </Link>
           ))}
+
+          {/* Language switcher */}
+          <LanguageSwitcher />
+
+          {/* X / Twitter */}
+          <a
+            href="https://x.com/TyshawnMor90261"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Tyshawn on X (Twitter)"
+            className="ml-1 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-300"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+
+          {/* Theme toggle */}
+          <ThemeToggle />
 
           {/* Dashboard CTA */}
           <Link
             href="/dashboard"
             className="ml-3 px-5 py-2 border border-primary/40 bg-primary/10 font-mono text-[11px] tracking-[0.15em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-300"
           >
-            Dashboard
+            {t("nav.dashboard")}
           </Link>
         </div>
 
@@ -109,7 +132,7 @@ export function Navbar() {
               href={link.href}
               className="py-3 font-mono text-sm tracking-[0.15em] uppercase text-muted-foreground border-b border-border/10 hover:text-foreground transition-colors duration-200"
             >
-              {link.label}
+              {t(link.key)}
             </Link>
           ))}
 
@@ -124,7 +147,7 @@ export function Navbar() {
                 pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {link.label}
+              {t(link.key)}
             </Link>
           ))}
 
@@ -132,8 +155,27 @@ export function Navbar() {
             href="/dashboard"
             className="mt-6 py-4 text-center border border-primary/40 bg-primary/10 font-mono text-sm tracking-[0.2em] uppercase text-primary hover:bg-primary hover:text-background transition-all duration-300"
           >
-            Dashboard
+            {t("nav.dashboard")}
           </Link>
+
+          {/* Bottom row — X link + lang + theme */}
+          <div className="mt-6 flex items-center justify-between gap-3">
+            <a
+              href="https://x.com/TyshawnMor90261"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 font-mono text-xs tracking-[0.15em] text-muted-foreground hover:text-primary transition-colors duration-200"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.735-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              @TyshawnMor90261
+            </a>
+            <div className="flex items-center gap-1">
+              <LanguageSwitcher />
+              <ThemeToggle />
+            </div>
+          </div>
         </div>
       </div>
     </header>

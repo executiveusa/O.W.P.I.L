@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react"
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
 export type Locale = "en" | "es" | "sr"
 
@@ -27,10 +27,8 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined)
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("en")
-  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
     const saved = localStorage.getItem("owpil-locale") as Locale
     if (saved && ["en", "es", "sr"].includes(saved)) {
       setLocaleState(saved)
@@ -64,10 +62,6 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     }
     
     return typeof value === "string" ? value : key
-  }
-
-  if (!mounted) {
-    return null
   }
 
   return (

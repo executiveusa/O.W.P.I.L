@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* Dark mode (default) */
+:root,
+.dark {
   --background: 0 0% 4%;
   --foreground: 0 0% 91%;
   --card: 0 0% 8%;
@@ -22,6 +24,30 @@
   --border: 0 0% 10%;
   --input: 0 0% 10%;
   --ring: 40 45% 58%;
+  --radius: 0.5rem;
+}
+
+/* Light mode — warm parchment, ink, and gold */
+.light {
+  --background: 36 33% 96%;
+  --foreground: 0 0% 8%;
+  --card: 36 20% 92%;
+  --card-foreground: 0 0% 8%;
+  --popover: 36 20% 92%;
+  --popover-foreground: 0 0% 8%;
+  --primary: 40 55% 42%;
+  --primary-foreground: 36 33% 96%;
+  --secondary: 36 15% 86%;
+  --secondary-foreground: 0 0% 8%;
+  --muted: 36 15% 88%;
+  --muted-foreground: 0 0% 38%;
+  --accent: 174 50% 38%;
+  --accent-foreground: 36 33% 96%;
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 36 33% 96%;
+  --border: 36 10% 82%;
+  --input: 36 10% 82%;
+  --ring: 40 55% 42%;
   --radius: 0.5rem;
 }
 
