@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Badge } from "@/components/ui/badge"
 
 interface ProductCardProps {
   id: number
@@ -50,28 +49,22 @@ export function ProductCard({
 
           {/* Sale badge */}
           {discountPercent > 0 && !isComingSoon && (
-            <div className="absolute top-3 left-3 z-10">
-              <Badge className="bg-primary text-background font-mono text-[10px] tracking-wider">
-                -{discountPercent}%
-              </Badge>
+            <div className="absolute top-3 left-3 z-10 bg-primary text-background px-2 py-1 font-mono text-[10px] tracking-wider">
+              -{discountPercent}%
             </div>
           )}
 
           {/* Protection badge */}
           {isProtected && !isComingSoon && (
-            <div className="absolute top-3 right-3 z-10">
-              <Badge variant="outline" className="bg-background/80 border-primary/60 text-primary font-mono text-[10px] tracking-wider">
-                Protected
-              </Badge>
+            <div className="absolute top-3 right-3 z-10 bg-background/80 border border-primary/60 text-primary px-2 py-1 font-mono text-[10px] tracking-wider">
+              Protected
             </div>
           )}
 
           {/* Digital badge */}
           {digital && !isComingSoon && (
-            <div className="absolute bottom-3 right-3 z-10">
-              <Badge className="bg-secondary text-secondary-foreground font-mono text-[10px] tracking-wider">
-                Digital
-              </Badge>
+            <div className="absolute bottom-3 right-3 z-10 bg-secondary text-secondary-foreground px-2 py-1 font-mono text-[10px] tracking-wider">
+              Digital
             </div>
           )}
 
