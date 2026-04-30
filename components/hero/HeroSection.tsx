@@ -147,17 +147,8 @@ export function HeroSection() {
               className="tegaki-write font-handwriting text-lg sm:text-2xl md:text-3xl text-primary"
               aria-label="Tyshawn Morehead"
             >
-              {t("hero.attribution")}
+              Tyshawn Morehead
             </span>
-
-            {/* Attribution line */}
-            <div className="attribution-appear flex items-center gap-3 mt-1">
-              <div className="h-px w-6 sm:w-8 bg-primary/50" />
-              <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-                O.W.P.I.L
-              </span>
-              <div className="h-px w-6 sm:w-8 bg-primary/50" />
-            </div>
           </div>
         )}
       </div>
