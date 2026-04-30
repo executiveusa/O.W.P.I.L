@@ -68,41 +68,41 @@ export function PhilosophySection() {
       <div className="relative mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div
-          className={`text-center mb-20 transition-all duration-1000 ${
+          className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
           <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">
             Core Beliefs
           </span>
-          <h2 className="mt-4 font-serif text-4xl md:text-5xl lg:text-6xl tracking-wide text-foreground">
+          <h2 className="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-wide text-foreground">
             {t("philosophy.title")}
           </h2>
-          <p className="mt-4 max-w-2xl mx-auto font-mono text-sm text-muted-foreground">
+          <p className="mt-4 max-w-2xl mx-auto font-mono text-xs sm:text-sm text-muted-foreground">
             The principles that guide the journey — a framework for living with intention.
           </p>
         </div>
 
         {/* Philosophy Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
           {philosophyItems.map((item, index) => (
             <div
               key={item.number}
-              className={`group relative p-8 border border-border/50 bg-card/50 hover:bg-card transition-all duration-500 ${
+              className={`group relative p-6 sm:p-8 border border-border/50 bg-card/50 hover:bg-card transition-all duration-500 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
               }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               {/* Number */}
-              <span className="absolute top-4 right-4 font-mono text-6xl font-bold text-foreground/[0.05] group-hover:text-primary/10 transition-colors duration-500">
+              <span className="absolute top-4 right-4 font-mono text-4xl sm:text-5xl md:text-6xl font-bold text-foreground/[0.05] group-hover:text-primary/10 transition-colors duration-500">
                 {item.number}
               </span>
 
               <div className="relative">
-                <h3 className="font-serif text-2xl md:text-3xl tracking-wide text-foreground group-hover:text-primary transition-colors duration-300">
+                <h3 className="font-serif text-xl sm:text-2xl md:text-3xl tracking-wide text-foreground group-hover:text-primary transition-colors duration-300">
                   {item.title}
                 </h3>
-                <p className="mt-4 font-mono text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3 sm:mt-4 font-mono text-xs sm:text-sm leading-relaxed text-muted-foreground">
                   {item.description}
                 </p>
               </div>
@@ -115,17 +115,17 @@ export function PhilosophySection() {
 
         {/* Quote Block */}
         <div
-          className={`mt-20 text-center transition-all duration-1000 delay-500 ${
+          className={`mt-16 sm:mt-20 text-center transition-all duration-1000 delay-500 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <blockquote className="max-w-3xl mx-auto">
-            <p className="font-serif text-2xl md:text-3xl lg:text-4xl italic text-foreground/90 leading-relaxed">
-              {`"One without purpose is lost. But to find purpose is to find oneself — and in finding oneself, we find everything."`}
+          <blockquote className="max-w-3xl mx-auto px-4">
+            <p className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-4xl italic text-foreground/90 leading-relaxed">
+              &ldquo;{t("hero.tagline")}&rdquo;
             </p>
-            <footer className="mt-6">
-              <span className="font-mono text-sm tracking-[0.2em] text-primary uppercase">
-                — Tyshawn Morehead
+            <footer className="mt-4 sm:mt-6">
+              <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-primary uppercase">
+                {t("hero.attribution")}
               </span>
             </footer>
           </blockquote>

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
+import { useTextHeight } from "@/lib/hooks/usePretext"
 
 const galleryImages = [
   {
@@ -119,6 +120,14 @@ function Lightbox({
   onPrev: () => void
   onNext: () => void
 }) {
+  // Measure caption text with Pretext to prevent layout shift
+  const captionHeight = useTextHeight(
+    image.alt,
+    '1rem serif',
+    Math.min(400, typeof window !== 'undefined' ? window.innerWidth - 48 : 400),
+    24
+  )
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
@@ -135,13 +144,13 @@ function Lightbox({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm p-4"
       onClick={onClose}
     >
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 p-2 text-foreground/60 hover:text-foreground transition-colors"
+        className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-foreground/60 hover:text-foreground transition-colors"
         aria-label="Close lightbox"
       >
         <svg
@@ -164,13 +173,14 @@ function Lightbox({
           e.stopPropagation()
           onPrev()
         }}
-        className="absolute left-4 md:left-8 p-3 text-foreground/60 hover:text-foreground transition-colors"
+        className="absolute left-2 sm:left-4 md:left-8 p-2 sm:p-3 text-foreground/60 hover:text-foreground transition-colors"
         aria-label="Previous image"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
+          width="28"
+          height="28"
+          className="w-6 h-6 sm:w-8 sm:h-8"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -186,13 +196,14 @@ function Lightbox({
           e.stopPropagation()
           onNext()
         }}
-        className="absolute right-4 md:right-8 p-3 text-foreground/60 hover:text-foreground transition-colors"
+        className="absolute right-2 sm:right-4 md:right-8 p-2 sm:p-3 text-foreground/60 hover:text-foreground transition-colors"
         aria-label="Next image"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
+          width="28"
+          height="28"
+          className="w-6 h-6 sm:w-8 sm:h-8"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -204,21 +215,25 @@ function Lightbox({
 
       {/* Image */}
       <div
-        className="relative w-full max-w-5xl mx-4 aspect-[16/10]"
+        className="relative w-full h-full max-w-5xl max-h-screen mx-auto flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
         <Image
           src={image.src}
           alt={image.alt}
           fill
-          className="object-contain"
+          className="object-contain object-center"
           sizes="(max-width: 1280px) 100vw, 1280px"
+          quality={90}
         />
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background/80 to-transparent">
+        <div
+          className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-background/80 to-transparent"
+          style={captionHeight ? { minHeight: `${captionHeight + 24}px` } : undefined}
+        >
           <p className="font-mono text-xs tracking-[0.2em] text-primary uppercase">
             {image.location}
           </p>
-          <p className="mt-1 font-serif text-lg text-foreground">{image.alt}</p>
+          <p className="mt-1 font-serif text-base sm:text-lg text-foreground">{image.alt}</p>
         </div>
       </div>
     </div>
@@ -272,23 +287,23 @@ export function GallerySection() {
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div
-          className={`text-center mb-16 transition-all duration-1000 ${
+          className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
           <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">
             Visual Stories
           </span>
-          <h2 className="mt-4 font-serif text-4xl md:text-5xl lg:text-6xl tracking-wide text-foreground">
+          <h2 className="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-wide text-foreground">
             Gallery
           </h2>
-          <p className="mt-4 max-w-2xl mx-auto font-mono text-sm text-muted-foreground">
-            Moments captured across continents �� each frame a window into different worlds.
+          <p className="mt-4 max-w-2xl mx-auto font-mono text-xs sm:text-sm text-muted-foreground">
+            Moments captured across continents 🌍 each frame a window into different worlds.
           </p>
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
           {galleryImages.map((image, index) => (
             <button
               key={image.src}
@@ -302,8 +317,9 @@ export function GallerySection() {
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                quality={80}
               />
               <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-300" />
               <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -315,8 +331,8 @@ export function GallerySection() {
                 </span>
               </div>
               {/* Category tag */}
-              <div className="absolute top-3 left-3 px-2 py-1 bg-background/80 backdrop-blur-sm">
-                <span className="font-mono text-[10px] tracking-[0.15em] text-muted-foreground uppercase">
+              <div className="absolute top-2 left-2 sm:top-3 sm:left-3 px-2 py-1 bg-background/80 backdrop-blur-sm">
+                <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.15em] text-muted-foreground uppercase">
                   {image.category}
                 </span>
               </div>

@@ -173,9 +173,9 @@ export default function AgentSettingsPage() {
           <div className="space-y-4">
             <label className="block text-sm text-muted-foreground">Agent Avatar</label>
             <div className="flex items-center gap-4">
-              <div className="w-24 h-24 rounded-full bg-muted border-2 border-accent/50 overflow-hidden flex items-center justify-center">
+              <div className="w-24 h-24 rounded-full bg-muted border-2 border-accent/50 overflow-hidden flex items-center justify-center flex-shrink-0">
                 {config.avatarUrl ? (
-                  <img src={config.avatarUrl} alt="Agent avatar" className="w-full h-full object-cover" />
+                  <img src={config.avatarUrl} alt="Agent avatar" className="w-full h-full object-cover object-center" loading="lazy" />
                 ) : (
                   <User className="w-10 h-10 text-muted-foreground" />
                 )}
@@ -209,11 +209,11 @@ export default function AgentSettingsPage() {
                     <button
                       key={avatar.pathname}
                       onClick={() => setConfig(prev => ({ ...prev, avatarUrl: avatar.url }))}
-                      className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${
+                      className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all flex-shrink-0 ${
                         config.avatarUrl === avatar.url ? 'border-accent scale-110' : 'border-border hover:border-accent/50'
                       }`}
                     >
-                      <img src={avatar.url} alt="Avatar option" className="w-full h-full object-cover" />
+                      <img src={avatar.url} alt="Avatar option" className="w-full h-full object-cover object-center" loading="lazy" />
                     </button>
                   ))}
                 </div>

@@ -100,16 +100,16 @@ export function HeroSection() {
   }, [nextImage])
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-background">
+    <section className="relative w-full overflow-hidden bg-background" style={{ height: "100vh", maxHeight: "100vh" }}>
       {/* Film Grain Overlay */}
       <div className="film-grain" aria-hidden="true" />
 
       {/* Background Images */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 w-full h-full">
         {heroImages.map((image, index) => (
           <div
             key={image.src}
-            className={`absolute inset-0 hero-image ${
+            className={`absolute inset-0 hero-image w-full h-full ${
               index === currentIndex ? "hero-image-active" : "hero-image-inactive"
             }`}
           >
@@ -118,8 +118,9 @@ export function HeroSection() {
               alt={image.alt}
               fill
               priority={index === 0}
-              className="object-cover"
+              className="object-cover object-center w-full h-full"
               sizes="100vw"
+              quality={85}
             />
           </div>
         ))}
@@ -130,45 +131,36 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 text-center">
         {/* Wordmark */}
         <OWPILWordmark isLoaded={isLoaded} />
 
         {/* Quote block — Tegaki-inspired handwriting animation */}
         {quoteVisible && (
-          <div className="mt-10 flex flex-col items-center gap-3">
+          <div className="mt-6 sm:mt-10 flex flex-col items-center gap-2 sm:gap-3 px-4">
             {/* The quote line in serif italic */}
-            <p className="quote-reveal font-serif text-xl md:text-2xl italic text-foreground/90 tracking-wide max-w-xl">
+            <p className="quote-reveal font-serif text-sm sm:text-xl md:text-2xl italic text-foreground/90 tracking-wide max-w-xl leading-relaxed">
               &ldquo;{t("hero.tagline")}&rdquo;
             </p>
 
             {/* Handwritten attribution — Dancing Script (Tegaki-style) */}
             <span
-              className="tegaki-write font-handwriting text-2xl md:text-3xl text-primary"
+              className="tegaki-write font-handwriting text-lg sm:text-2xl md:text-3xl text-primary"
               aria-label="Tyshawn Morehead"
             >
-              {t("hero.attribution")}
+              Tyshawn Morehead
             </span>
-
-            {/* Attribution line */}
-            <div className="attribution-appear flex items-center gap-3 mt-1">
-              <div className="h-px w-8 bg-primary/50" />
-              <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-                O.W.P.I.L
-              </span>
-              <div className="h-px w-8 bg-primary/50" />
-            </div>
           </div>
         )}
       </div>
 
       {/* Image Progress Indicators */}
-      <div className="absolute bottom-24 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+      <div className="absolute bottom-16 sm:bottom-24 left-1/2 z-20 flex -translate-x-1/2 gap-1.5 sm:gap-2 px-4 overflow-x-auto max-w-full">
         {heroImages.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className="group relative h-px w-10 overflow-hidden bg-foreground/20 transition-all hover:bg-foreground/30"
+            className="group relative h-px w-8 sm:w-10 flex-shrink-0 overflow-hidden bg-foreground/20 transition-all hover:bg-foreground/30"
             aria-label={`Go to image ${index + 1}`}
           >
             {index === currentIndex && (

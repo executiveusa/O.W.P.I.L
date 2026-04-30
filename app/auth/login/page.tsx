@@ -56,7 +56,9 @@ export default function LoginPage() {
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223631-StlrMIDhRpmffslz73XRRzYB5PzzZb.jpg"
           alt="Background"
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover object-center opacity-30"
+          loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
       </div>
@@ -70,32 +72,32 @@ export default function LoginPage() {
       />
 
       {/* Login Form */}
-      <div className="relative z-20 flex min-h-screen items-center justify-center p-6">
+      <div className="relative z-20 flex min-h-screen items-center justify-center p-4 sm:p-6">
         <div className="w-full max-w-md">
           {/* Logo */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6 sm:mb-8">
             <Link href="/" className="inline-block">
-              <h1 className="font-serif text-4xl tracking-[0.3em] text-foreground">
+              <h1 className="font-serif text-2xl sm:text-4xl tracking-[0.3em] text-foreground">
                 O<span className="text-accent">.</span>W<span className="text-accent">.</span>P<span className="text-accent">.</span>I<span className="text-accent">.</span>L
               </h1>
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground tracking-widest uppercase">
+            <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-muted-foreground tracking-widest uppercase">
               Command Center
             </p>
           </div>
 
           {/* Card */}
-          <div className="bg-card/80 backdrop-blur-md border border-border rounded-lg p-8 shadow-2xl">
+          <div className="bg-card/80 backdrop-blur-md border border-border rounded-lg p-6 sm:p-8 shadow-2xl">
             <div className="mb-6">
-              <h2 className="text-2xl font-serif text-foreground">Sign In</h2>
-              <p className="text-muted-foreground text-sm mt-1">
+              <h2 className="text-xl sm:text-2xl font-serif text-foreground">Sign In</h2>
+              <p className="text-muted-foreground text-xs sm:text-sm mt-1">
                 Access your dashboard
               </p>
             </div>
 
-            <form onSubmit={handleLogin} className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
+                <label htmlFor="email" className="text-xs sm:text-sm font-mono text-muted-foreground uppercase tracking-wider">
                   Email
                 </label>
                 <input
@@ -105,12 +107,12 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-background/50 border border-border rounded-md text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background/50 border border-border rounded-md text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-sm"
                 />
               </div>
 
               {/* Authentication Method Toggle */}
-              <div className="flex items-center gap-4 p-3 bg-accent/10 border border-accent/30 rounded-md">
+              <div className="flex items-center gap-3 p-2.5 sm:p-3 bg-accent/10 border border-accent/30 rounded-md">
                 <label className="flex items-center gap-2 cursor-pointer flex-1">
                   <input
                     type="checkbox"
@@ -118,7 +120,7 @@ export default function LoginPage() {
                     onChange={(e) => setUsePassword(e.target.checked)}
                     className="w-4 h-4 accent-accent"
                   />
-                  <span className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
+                  <span className="text-xs sm:text-sm font-mono text-muted-foreground uppercase tracking-wider">
                     Use Password
                   </span>
                 </label>
@@ -128,7 +130,7 @@ export default function LoginPage() {
               {usePassword && (
                 <div className="space-y-2 animate-in fade-in">
                   <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
+                    <label htmlFor="password" className="text-xs sm:text-sm font-mono text-muted-foreground uppercase tracking-wider">
                       Password
                     </label>
                     <button
@@ -145,21 +147,21 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full px-4 py-3 bg-background/50 border border-border rounded-md text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-background/50 border border-border rounded-md text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all text-sm"
                   />
                 </div>
               )}
 
               {error && (
-                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-md">
-                  <p className="text-sm text-red-400">{error}</p>
+                <div className="p-2.5 sm:p-3 bg-red-500/10 border border-red-500/30 rounded-md">
+                  <p className="text-xs sm:text-sm text-red-400">{error}</p>
                 </div>
               )}
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 px-4 bg-accent text-background font-mono uppercase tracking-wider rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full py-2.5 sm:py-3 px-4 bg-accent text-background font-mono text-xs sm:text-sm uppercase tracking-wider rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -175,8 +177,8 @@ export default function LoginPage() {
               </button>
             </form>
 
-            <div className="mt-6 pt-6 border-t border-border text-center">
-              <p className="text-sm text-muted-foreground">
+            <div className="mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-border text-center">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 {"Don't have access?"}{' '}
                 <Link href="/auth/sign-up" className="text-accent hover:underline">
                   Request Access
@@ -186,10 +188,10 @@ export default function LoginPage() {
           </div>
 
           {/* Back to Site */}
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <Link 
               href="/" 
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
+              className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
