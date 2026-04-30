@@ -119,28 +119,28 @@ export function TimelineSection() {
         {/* Header */}
         <div className={`mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">The Journey</span>
-          <h2 className="mt-4 font-serif text-5xl md:text-7xl tracking-wide text-foreground">
+          <h2 className="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl tracking-wide text-foreground">
             Past. Present. Future.
           </h2>
-          <p className="mt-4 font-mono text-sm text-muted-foreground max-w-md leading-relaxed">
+          <p className="mt-4 font-mono text-xs sm:text-sm text-muted-foreground max-w-md leading-relaxed">
             A visual narrative through time — the evolution of purpose and the pursuit of meaning.
           </p>
         </div>
 
         {/* Era Tabs */}
-        <div className={`flex gap-0 mb-16 border-b border-border/30 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`flex gap-0 mb-12 sm:mb-16 border-b border-border/30 transition-all duration-1000 delay-200 overflow-x-auto ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {eras.map(({ key, label, subtitle }) => (
             <button
               key={key}
               onClick={() => handleEraChange(key)}
-              className={`relative pb-5 pr-10 text-left group transition-all duration-300 ${
+              className={`relative pb-4 sm:pb-5 pr-6 sm:pr-10 text-left group transition-all duration-300 flex-shrink-0 ${
                 activeEra === key ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <span className="block font-mono text-[10px] tracking-[0.25em] uppercase mb-1 opacity-60">
+              <span className="block font-mono text-[9px] sm:text-[10px] tracking-[0.25em] uppercase mb-1 opacity-60">
                 {subtitle}
               </span>
-              <span className="font-serif text-xl md:text-2xl">
+              <span className="font-serif text-base sm:text-xl md:text-2xl">
                 {label}
               </span>
               <span className={`absolute bottom-0 left-0 h-px bg-primary transition-all duration-500 ${activeEra === key ? "right-4" : "right-full"}`} />
@@ -149,10 +149,10 @@ export function TimelineSection() {
         </div>
 
         {/* Content: two-column on desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 lg:gap-20 items-start">
 
           {/* Left: timeline items */}
-          <div className="relative">
+          <div className="relative overflow-x-hidden">
             {/* Vertical track */}
             <div className="absolute left-[7px] top-2 bottom-0 w-px bg-border/25" />
 
@@ -173,26 +173,26 @@ export function TimelineSection() {
                   }`} />
 
                   {/* Period label */}
-                  <span className="font-mono text-[10px] tracking-[0.3em] text-primary/70 uppercase">
+                  <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.3em] text-primary/70 uppercase">
                     {item.period}
                   </span>
 
                   {/* Title + expand toggle */}
                   <button
                     onClick={() => setExpanded(expanded === index ? null : index)}
-                    className="w-full text-left mt-1.5 group/btn"
+                    className="w-full text-left mt-1.5 group/btn pr-4 sm:pr-0"
                   >
-                    <div className="flex items-center justify-between gap-4">
-                      <h3 className="font-serif text-2xl md:text-3xl text-foreground group-hover/btn:text-primary transition-colors duration-300">
+                    <div className="flex items-start sm:items-center justify-between gap-4">
+                      <h3 className="font-serif text-lg sm:text-2xl md:text-3xl text-foreground group-hover/btn:text-primary transition-colors duration-300">
                         {item.title}
                       </h3>
-                      <span className={`flex-shrink-0 text-muted-foreground transition-transform duration-300 ${expanded === index ? "rotate-90" : ""}`}>
+                      <span className={`flex-shrink-0 text-muted-foreground transition-transform duration-300 mt-1 sm:mt-0 ${expanded === index ? "rotate-90" : ""}`}>
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                           <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </span>
                     </div>
-                    <p className="mt-2 font-mono text-sm text-muted-foreground leading-relaxed max-w-xl">
+                    <p className="mt-2 font-mono text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xl">
                       {item.description}
                     </p>
                   </button>
@@ -212,13 +212,13 @@ export function TimelineSection() {
             </div>
 
             {/* Bottom CTA */}
-            <div className={`mt-8 pt-10 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all duration-1000 delay-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-              <p className="font-serif text-xl text-foreground">
+            <div className={`mt-8 pt-8 sm:pt-10 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 transition-all duration-1000 delay-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+              <p className="font-serif text-base sm:text-lg md:text-xl text-foreground">
                 The documentary tells what these words cannot.
               </p>
               <a
                 href="/documentary"
-                className="flex-shrink-0 px-7 py-3 border border-primary/50 text-primary font-mono text-xs tracking-[0.2em] uppercase hover:bg-primary hover:text-background transition-all duration-300"
+                className="flex-shrink-0 px-5 sm:px-7 py-2.5 sm:py-3 border border-primary/50 text-primary font-mono text-xs tracking-[0.2em] uppercase hover:bg-primary hover:text-background transition-all duration-300 whitespace-nowrap"
               >
                 Watch the Film
               </a>

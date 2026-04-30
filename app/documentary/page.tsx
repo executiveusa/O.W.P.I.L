@@ -37,7 +37,7 @@ export default function DocumentaryPage() {
       <div className="film-grain" aria-hidden="true" />
 
       {/* Back nav */}
-      <div className="fixed top-6 left-6 z-50">
+      <div className="fixed top-4 sm:top-6 left-4 sm:left-6 z-50">
         <Link
           href="/"
           className="flex items-center gap-2 font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-colors"
@@ -45,23 +45,23 @@ export default function DocumentaryPage() {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Back
+          <span className="hidden sm:inline">Back</span>
         </Link>
       </div>
 
       {/* Hero */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-16">
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16 sm:pt-24 pb-12 sm:pb-16">
         {/* Dark background */}
         <div className="absolute inset-0 bg-background" />
 
-        <div className="relative z-10 flex flex-col items-center px-6 w-full max-w-5xl mx-auto">
+        <div className="relative z-10 flex flex-col items-center px-4 sm:px-6 w-full max-w-5xl mx-auto">
           {/* Pre-label */}
-          <p className="font-mono text-[10px] tracking-[0.6em] uppercase text-primary mb-10">
+          <p className="font-mono text-[9px] sm:text-[10px] tracking-[0.6em] uppercase text-primary mb-6 sm:mb-10">
             Coming Fall 2026
           </p>
 
           {/* Poster — the hero visual */}
-          <div className="relative w-full max-w-lg mx-auto rounded-sm overflow-hidden shadow-2xl shadow-black/60">
+          <div className="relative w-full max-w-sm sm:max-w-lg mx-auto rounded-sm overflow-hidden shadow-2xl shadow-black/60">
             <Image
               src="/images/owpil-documentary-poster.jpg"
               alt="O.W.P.I.L — One Without Purpose Is Lost — Documentary Fall 2026"
@@ -72,14 +72,14 @@ export default function DocumentaryPage() {
             />
           </div>
 
-          <p className="mt-10 font-mono text-sm leading-relaxed text-muted-foreground max-w-xl mx-auto text-center">
+          <p className="mt-6 sm:mt-10 font-mono text-xs sm:text-sm leading-relaxed text-muted-foreground max-w-xl mx-auto text-center">
             A cinematic journey through purpose, identity, and the pursuit of meaning.
             The story of Tyshawn Morehead — told through his own eyes.
           </p>
 
           {/* Scroll cue */}
-          <div className="mt-10 flex flex-col items-center gap-2">
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground/50">Sign up below</span>
+          <div className="mt-6 sm:mt-10 flex flex-col items-center gap-2">
+            <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.3em] uppercase text-muted-foreground/50">Sign up below</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground/50"/>
             </svg>
@@ -88,21 +88,21 @@ export default function DocumentaryPage() {
       </section>
 
       {/* Sign-up funnel */}
-      <section className="relative py-24 md:py-32 px-6 bg-background">
+      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-background">
         <div className="max-w-2xl mx-auto text-center">
-          <span className="font-mono text-[10px] tracking-[0.5em] uppercase text-primary">
+          <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.5em] uppercase text-primary">
             Exclusive Access
           </span>
-          <h2 className="mt-4 font-serif text-3xl md:text-5xl tracking-wide text-foreground">
+          <h2 className="mt-3 sm:mt-4 font-serif text-2xl sm:text-3xl md:text-5xl tracking-wide text-foreground">
             Be Part of the Story
           </h2>
-          <p className="mt-6 font-mono text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-4 sm:mt-6 font-mono text-xs sm:text-sm leading-relaxed text-muted-foreground">
             Sign up for behind-the-scenes access, exclusive updates, and a chance to
             win free O.W.P.I.L gear and other prizes. Be first in line when the documentary drops.
           </p>
 
           {/* Prizes list */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {[
               { label: "Behind-the-Scenes", desc: "Exclusive footage & updates" },
               { label: "Free OPAL Gear", desc: "Win hats, shirts & merch" },
@@ -110,46 +110,46 @@ export default function DocumentaryPage() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="border border-border/50 rounded-sm p-4 bg-card/30 hover:border-primary/30 transition-colors"
+                className="border border-border/50 rounded-sm p-3 sm:p-4 bg-card/30 hover:border-primary/30 transition-colors"
               >
-                <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-primary mb-1">
+                <p className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-primary mb-1">
                   {item.label}
                 </p>
-                <p className="font-mono text-xs text-muted-foreground">{item.desc}</p>
+                <p className="font-mono text-[10px] sm:text-xs text-muted-foreground">{item.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Form */}
-          <div className="mt-12">
+          <div className="mt-8 sm:mt-12">
             {submitted ? (
-              <div className="border border-primary/30 rounded-sm p-8 bg-primary/5">
-                <p className="font-serif text-2xl italic text-foreground mb-2">
+              <div className="border border-primary/30 rounded-sm p-6 sm:p-8 bg-primary/5">
+                <p className="font-serif text-lg sm:text-2xl italic text-foreground mb-1 sm:mb-2">
                   You&apos;re on the list.
                 </p>
-                <p className="font-mono text-xs text-muted-foreground">
+                <p className="font-mono text-xs sm:text-sm text-muted-foreground">
                   We&apos;ll be in touch when things get real. Stay ready.
                 </p>
-                <div className="mt-4 flex items-center justify-center gap-3">
-                  <div className="h-px w-8 bg-primary/50" />
-                  <span className="font-handwriting text-xl text-primary">Tyshawn Morehead</span>
-                  <div className="h-px w-8 bg-primary/50" />
+                <div className="mt-3 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3">
+                  <div className="h-px w-6 sm:w-8 bg-primary/50" />
+                  <span className="font-handwriting text-lg sm:text-xl text-primary">Tyshawn Morehead</span>
+                  <div className="h-px w-6 sm:w-8 bg-primary/50" />
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md mx-auto">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   required
-                  className="flex-1 px-4 py-3 bg-card/50 border border-border rounded-sm font-mono text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/60 transition-colors"
+                  className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-card/50 border border-border rounded-sm font-mono text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/60 transition-colors"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-6 py-3 bg-primary text-background font-mono text-xs tracking-[0.2em] uppercase rounded-sm hover:bg-primary/90 disabled:opacity-50 transition-all"
+                  className="px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-background font-mono text-xs tracking-[0.2em] uppercase rounded-sm hover:bg-primary/90 disabled:opacity-50 transition-all whitespace-nowrap"
                 >
                   {loading ? "..." : "Join"}
                 </button>
@@ -157,10 +157,10 @@ export default function DocumentaryPage() {
             )}
 
             {error && (
-              <p className="mt-3 font-mono text-xs text-destructive">{error}</p>
+              <p className="mt-2 sm:mt-3 font-mono text-xs text-destructive">{error}</p>
             )}
 
-            <p className="mt-4 font-mono text-[10px] text-muted-foreground/50 tracking-wider">
+            <p className="mt-3 sm:mt-4 font-mono text-[9px] sm:text-[10px] text-muted-foreground/50 tracking-wider">
               No spam. Unsubscribe anytime. Your info goes directly to Tyshawn.
             </p>
           </div>
@@ -168,15 +168,15 @@ export default function DocumentaryPage() {
       </section>
 
       {/* Closing cinematic quote */}
-      <section className="py-24 px-6 border-t border-border/30">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 border-t border-border/30">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-serif text-2xl md:text-4xl italic text-foreground/80 leading-relaxed">
+          <p className="font-serif text-lg sm:text-2xl md:text-4xl italic text-foreground/80 leading-relaxed">
             &ldquo;Purpose is not found. It is forged — through every loss, every lesson, every mile traveled in the dark.&rdquo;
           </p>
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <div className="h-px w-8 bg-primary/50" />
-            <span className="font-handwriting text-xl text-primary">Tyshawn Morehead</span>
-            <div className="h-px w-8 bg-primary/50" />
+          <div className="mt-4 sm:mt-6 flex items-center justify-center gap-2 sm:gap-3">
+            <div className="h-px w-6 sm:w-8 bg-primary/50" />
+            <span className="font-handwriting text-base sm:text-lg md:text-xl text-primary">Tyshawn Morehead</span>
+            <div className="h-px w-6 sm:w-8 bg-primary/50" />
           </div>
         </div>
       </section>

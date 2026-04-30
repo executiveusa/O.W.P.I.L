@@ -112,39 +112,39 @@ export function ConnectSection() {
     <section
       ref={sectionRef}
       id="connect"
-      className="relative py-24 md:py-32 bg-card"
+      className="relative py-16 sm:py-24 md:py-32 bg-card"
     >
       <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Left side - CTA */}
           <div
-            className={`max-w-xl transition-all duration-1000 ${
+            className={`w-full max-w-xl transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
             <span className="font-mono text-xs tracking-[0.3em] text-primary uppercase">
               {t("connect.subtitle")}
             </span>
-            <h2 className="mt-4 font-serif text-4xl md:text-5xl tracking-wide text-foreground">
+            <h2 className="mt-4 font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide text-foreground">
               {t("connect.title")}
             </h2>
-            <p className="mt-4 font-mono text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-3 sm:mt-4 font-mono text-xs sm:text-sm leading-relaxed text-muted-foreground">
               Whether you want to collaborate on a project, discuss philosophy over coffee,
               or simply share your favorite anime — the door is always open.
             </p>
 
             {/* Newsletter signup */}
-            <div className="mt-8">
-              <p className="font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase mb-3">
+            <div className="mt-6 sm:mt-8">
+              <p className="font-mono text-xs tracking-[0.15em] text-muted-foreground uppercase mb-2 sm:mb-3">
                 {t("connect.join")}
               </p>
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="flex-1 px-4 py-3 bg-background border border-border font-mono text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                  className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-background border border-border font-mono text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                 />
-                <button className="px-6 py-3 bg-primary text-primary-foreground font-mono text-sm tracking-[0.1em] uppercase hover:bg-primary/90 transition-colors">
+                <button className="px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground font-mono text-xs tracking-[0.1em] uppercase hover:bg-primary/90 transition-colors whitespace-nowrap">
                   {t("connect.subscribe")}
                 </button>
               </div>
@@ -153,24 +153,24 @@ export function ConnectSection() {
 
           {/* Right side - Social Links */}
           <div
-            className={`transition-all duration-1000 delay-200 ${
+            className={`w-full transition-all duration-1000 delay-200 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 sm:gap-4">
               {socialLinks.map((link, index) => (
                 <a
                   key={link.name}
                   href={link.href}
                   target={link.href.startsWith("mailto") ? undefined : "_blank"}
                   rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                  className="group flex items-center gap-4 p-6 border border-border/50 bg-background hover:border-primary/50 transition-all duration-300"
+                  className="group flex flex-col sm:flex-row sm:items-center sm:gap-4 p-3 sm:p-6 border border-border/50 bg-background hover:border-primary/50 transition-all duration-300"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  <span className="text-muted-foreground group-hover:text-primary transition-colors">
+                  <span className="text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0">
                     <SocialIcon icon={link.icon} />
                   </span>
-                  <span className="font-mono text-sm tracking-[0.1em] text-foreground group-hover:text-primary transition-colors">
+                  <span className="font-mono text-xs sm:text-sm tracking-[0.1em] text-foreground group-hover:text-primary transition-colors">
                     {link.name}
                   </span>
                 </a>
