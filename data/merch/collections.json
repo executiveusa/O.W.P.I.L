@@ -1,0 +1,65 @@
+[
+  {
+    "id": "all",
+    "name": "All Products",
+    "slug": "all",
+    "description": "The complete O.W.P.I.L and DUAL merch collection.",
+    "featured": true
+  },
+  {
+    "id": "dual-chapter-1",
+    "name": "Dual Chapter 1",
+    "slug": "dual-chapter-1",
+    "description": "Flagship merch collection centered on DUAL: Chapter 1 — The Knock.",
+    "featured": true
+  },
+  {
+    "id": "owpil-essentials",
+    "name": "O.W.P.I.L Essentials",
+    "slug": "owpil-essentials",
+    "description": "Core brand pieces and everyday wearables.",
+    "featured": true
+  },
+  {
+    "id": "seattle-2056",
+    "name": "Seattle 2056",
+    "slug": "seattle-2056",
+    "description": "Wall art and collector pieces from the cyberpunk future.",
+    "featured": true
+  },
+  {
+    "id": "protected-collector",
+    "name": "Protected Collector Prints",
+    "slug": "protected-collector",
+    "description": "Premium collector editions with artwork protection.",
+    "featured": true
+  },
+  {
+    "id": "digital-downloads",
+    "name": "Digital Downloads",
+    "slug": "digital-downloads",
+    "description": "Instant digital products for personal use.",
+    "featured": false
+  },
+  {
+    "id": "artist-protection",
+    "name": "Artist Protection Tools",
+    "slug": "artist-protection",
+    "description": "Tools for artists protecting and monetizing artwork.",
+    "featured": false
+  },
+  {
+    "id": "apparel",
+    "name": "Apparel",
+    "slug": "apparel",
+    "description": "T-shirts, hoodies, and wearables.",
+    "featured": false
+  },
+  {
+    "id": "accessories",
+    "name": "Accessories",
+    "slug": "accessories",
+    "description": "Hats, stickers, phone cases, and more.",
+    "featured": false
+  }
+]
