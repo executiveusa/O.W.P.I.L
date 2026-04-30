@@ -173,7 +173,7 @@ export default function DashboardChatPage() {
           
           <button
             type="submit"
-            disabled={isLoading || !input.trim()}
+            disabled={isLoading || !input?.trim()}
             className="w-12 h-12 rounded-full bg-accent text-background flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent/90 transition-colors"
           >
             {isLoading ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}

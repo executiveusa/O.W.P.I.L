@@ -100,16 +100,16 @@ export function HeroSection() {
   }, [nextImage])
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-background">
+    <section className="relative w-full overflow-hidden bg-background" style={{ height: "100vh", maxHeight: "100vh" }}>
       {/* Film Grain Overlay */}
       <div className="film-grain" aria-hidden="true" />
 
       {/* Background Images */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 w-full h-full">
         {heroImages.map((image, index) => (
           <div
             key={image.src}
-            className={`absolute inset-0 hero-image ${
+            className={`absolute inset-0 hero-image w-full h-full ${
               index === currentIndex ? "hero-image-active" : "hero-image-inactive"
             }`}
           >
@@ -118,8 +118,9 @@ export function HeroSection() {
               alt={image.alt}
               fill
               priority={index === 0}
-              className="object-cover"
+              className="object-cover object-center w-full h-full"
               sizes="100vw"
+              quality={85}
             />
           </div>
         ))}
@@ -130,7 +131,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 text-center">
         {/* Wordmark */}
         <OWPILWordmark isLoaded={isLoaded} />
 

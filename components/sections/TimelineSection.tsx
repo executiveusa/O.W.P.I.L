@@ -233,7 +233,9 @@ export function TimelineSection() {
                   src={featuredImage}
                   alt={`${activeEra} era`}
                   fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                  className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000"
+                  quality={80}
+                  sizes="(max-width: 1536px) 360px, 400px"
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">

@@ -51,7 +51,8 @@ export default function SignUpPage() {
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223927-zBZWkZCWVe2dUPPHPV4MvRLg6CYypf.jpg"
           alt="Background"
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover object-center opacity-30"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
       </div>
@@ -65,16 +66,16 @@ export default function SignUpPage() {
       />
 
       {/* Sign Up Form */}
-      <div className="relative z-20 flex min-h-screen items-center justify-center p-6">
+      <div className="relative z-20 flex min-h-screen items-center justify-center p-4 sm:p-6">
         <div className="w-full max-w-md">
           {/* Logo */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6 sm:mb-8">
             <Link href="/" className="inline-block">
-              <h1 className="font-serif text-4xl tracking-[0.3em] text-foreground">
+              <h1 className="font-serif text-2xl sm:text-4xl tracking-[0.3em] text-foreground">
                 O<span className="text-accent">.</span>W<span className="text-accent">.</span>P<span className="text-accent">.</span>I<span className="text-accent">.</span>L
               </h1>
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground tracking-widest uppercase">
+            <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-muted-foreground tracking-widest uppercase">
               Request Access
             </p>
           </div>

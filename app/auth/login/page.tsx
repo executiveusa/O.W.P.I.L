@@ -56,7 +56,8 @@ export default function LoginPage() {
         <img
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VideoCapture_20201022-223631-StlrMIDhRpmffslz73XRRzYB5PzzZb.jpg"
           alt="Background"
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover object-center opacity-30"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
       </div>

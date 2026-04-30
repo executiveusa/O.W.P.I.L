@@ -206,15 +206,16 @@ function Lightbox({
 
       {/* Image */}
       <div
-        className="relative w-full h-full max-w-5xl max-h-screen mx-auto"
+        className="relative w-full h-full max-w-5xl max-h-screen mx-auto flex items-center justify-center"
         onClick={(e) => e.stopPropagation()}
       >
         <Image
           src={image.src}
           alt={image.alt}
           fill
-          className="object-contain"
+          className="object-contain object-center"
           sizes="(max-width: 1280px) 100vw, 1280px"
+          quality={90}
         />
         <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-background/80 to-transparent">
           <p className="font-mono text-xs tracking-[0.2em] text-primary uppercase">
@@ -304,8 +305,9 @@ export function GallerySection() {
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                quality={80}
               />
               <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-300" />
               <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
