@@ -121,11 +121,11 @@ export function PhilosophySection() {
         >
           <blockquote className="max-w-3xl mx-auto px-4">
             <p className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-4xl italic text-foreground/90 leading-relaxed">
-              {`"One without purpose is lost. But to find purpose is to find oneself — and in finding oneself, we find everything."`}
+              &ldquo;{t("hero.tagline")}&rdquo;
             </p>
             <footer className="mt-4 sm:mt-6">
               <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-primary uppercase">
-                — Tyshawn Morehead
+                {t("hero.attribution")}
               </span>
             </footer>
           </blockquote>

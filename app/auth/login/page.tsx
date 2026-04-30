@@ -58,6 +58,7 @@ export default function LoginPage() {
           alt="Background"
           className="w-full h-full object-cover object-center opacity-30"
           loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
       </div>
