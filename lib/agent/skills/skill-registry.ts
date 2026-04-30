@@ -57,6 +57,7 @@ import { fileSkills } from './built-in/file-skills'
 import { webSkills } from './built-in/web-skills'
 import { owpilSkills } from './built-in/owpil-skills'
 import { browserSkills } from './built-in/browser-skills'
+import { browserAutomationSkills } from './built-in/browser-automation-skills'
 import { discordSkills } from './built-in/discord-skills'
 import { animeSkills } from './built-in/anime-skills'
 import { emailSkills } from './built-in/email-skills'
@@ -76,8 +77,11 @@ export function registerBuiltInSkills(): void {
   // O.W.P.I.L specific skills
   owpilSkills.forEach(skill => skillRegistry.register(skill))
   
-  // Browser automation
+  // Browser automation (Playwright + Harness)
   browserSkills.forEach(skill => skillRegistry.register(skill))
+  
+  // Advanced browser automation (self-healing, multi-step tasks)
+  browserAutomationSkills.forEach(skill => skillRegistry.register(skill))
   
   // Discord integration
   discordSkills.forEach(skill => skillRegistry.register(skill))
