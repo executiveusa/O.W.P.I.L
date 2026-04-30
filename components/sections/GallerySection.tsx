@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
+import { useTextHeight } from "@/lib/hooks/usePretext"
 
 const galleryImages = [
   {
@@ -119,6 +120,14 @@ function Lightbox({
   onPrev: () => void
   onNext: () => void
 }) {
+  // Measure caption text with Pretext to prevent layout shift
+  const captionHeight = useTextHeight(
+    image.alt,
+    '1rem serif',
+    Math.min(400, typeof window !== 'undefined' ? window.innerWidth - 48 : 400),
+    24
+  )
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
@@ -217,7 +226,10 @@ function Lightbox({
           sizes="(max-width: 1280px) 100vw, 1280px"
           quality={90}
         />
-        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-background/80 to-transparent">
+        <div
+          className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 bg-gradient-to-t from-background/80 to-transparent"
+          style={captionHeight ? { minHeight: `${captionHeight + 24}px` } : undefined}
+        >
           <p className="font-mono text-xs tracking-[0.2em] text-primary uppercase">
             {image.location}
           </p>

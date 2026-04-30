@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { Send, Mic, MicOff, Loader2, Bot, User, Sparkles } from 'lucide-react'
+import { useTextHeight } from '@/lib/hooks/usePretext'
 
 export default function DashboardChatPage() {
   const [sessionId] = useState(() => 
@@ -92,39 +93,51 @@ export default function DashboardChatPage() {
           </div>
         )}
         
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}
-          >
-            {message.role === 'assistant' && (
-              <div className="w-8 h-8 rounded-full bg-accent/20 flex-shrink-0 flex items-center justify-center">
-                <Bot className="w-4 h-4 text-accent" />
-              </div>
-            )}
-            
-            <div className={`
-              max-w-[80%] rounded-2xl px-4 py-3
-              ${message.role === 'user' 
-                ? 'bg-accent text-background' 
-                : 'bg-card border border-border'
-              }
-            `}>
+        {messages.map((message) => {
+          // Use Pretext to measure message height without DOM reflow
+          // This prevents layout shift when messages render
+          const measuredHeight = useTextHeight(
+            message.content,
+            '0.875rem monospace',
+            Math.min(640, typeof window !== 'undefined' ? window.innerWidth * 0.8 : 640),
+            24
+          )
+          
+          return (
+            <div
+              key={message.id}
+              className={`flex gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}
+              style={measuredHeight ? { minHeight: `${Math.max(measuredHeight + 24, 56)}px` } : undefined}
+            >
+              {message.role === 'assistant' && (
+                <div className="w-8 h-8 rounded-full bg-accent/20 flex-shrink-0 flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-accent" />
+                </div>
+              )}
+              
               <div className={`
-                font-mono text-sm whitespace-pre-wrap
-                ${message.role === 'user' ? 'text-background' : 'text-foreground'}
+                max-w-[80%] rounded-2xl px-4 py-3
+                ${message.role === 'user' 
+                  ? 'bg-accent text-background' 
+                  : 'bg-card border border-border'
+                }
               `}>
-                {message.content}
+                <div className={`
+                  font-mono text-sm whitespace-pre-wrap
+                  ${message.role === 'user' ? 'text-background' : 'text-foreground'}
+                `}>
+                  {message.content}
+                </div>
               </div>
+              
+              {message.role === 'user' && (
+                <div className="w-8 h-8 rounded-full bg-muted flex-shrink-0 flex items-center justify-center">
+                  <User className="w-4 h-4 text-foreground" />
+                </div>
+              )}
             </div>
-            
-            {message.role === 'user' && (
-              <div className="w-8 h-8 rounded-full bg-muted flex-shrink-0 flex items-center justify-center">
-                <User className="w-4 h-4 text-foreground" />
-              </div>
-            )}
-          </div>
-        ))}
+          )
+        })}
         
         {isLoading && (
           <div className="flex gap-4">
